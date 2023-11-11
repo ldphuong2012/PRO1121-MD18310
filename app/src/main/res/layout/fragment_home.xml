@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment_Bottom.HomeFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
+
+            <ImageView
+                android:id="@+id/img_logo2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/my_image"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+    android:id="@+id/liner_edit1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintTop_toBottomOf="@id/img_logo2">
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tip_find"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên sản phẩm"
+            android:drawableLeft="@drawable/ic_search_black"
+            android:drawablePadding="10dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
+    <ViewFlipper
+        android:id="@+id/view_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        app:layout_constraintTop_toBottomOf="@id/liner_edit1"
+        android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/tv_allproducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All Products"
+                app:layout_constraintTop_toBottomOf="@id/view_flipper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_seeallpr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="See all"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toRightOf="@id/tv_allproducts"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_flipper"
+                android:textColor="#4CAF50"
+                android:layout_marginRight="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_allproducts"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tv_allproducts"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/tv_topsale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Products"
+                app:layout_constraintTop_toBottomOf="@id/rcv_allproducts"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_topsale"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tv_topsale"
+                android:layout_marginTop="10dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

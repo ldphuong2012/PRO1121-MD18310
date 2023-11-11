@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_qlysp"
+            android:icon="@drawable/ic_product"
+            android:title="Quản lý sản phẩm"/>
+
+        <item
+            android:id="@+id/nav_hoadon"
+            android:icon="@drawable/ic_bill"
+            android:title="Quản lý hóa đơn"/>
+
+        <item
+            android:id="@+id/nav_khachhang"
+            android:icon="@drawable/ic_account"
+            android:title="Quản lý khách hàng"/>
+
+        <item
+            android:id="@+id/nav_nhanvien"
+            android:icon="@drawable/ic_persion"
+            android:title="Quản lý nhân viên"/>
+        <item
+            android:id="@+id/nav_donhang"
+            android:icon="@drawable/ic_info"
+            android:title="Xác nhận đơn hàng"/>
+    </group>
+    <item
+        android:title="Thống kê">
+
+        <menu>
+            <item
+                android:id="@+id/nav_doanhthu"
+                android:icon="@drawable/ic_doanhthu"
+                android:title="Doanh thu"/>
+            <item
+                android:id="@+id/nav_banchay"
+                android:icon="@drawable/ic_sell"
+                android:title="Mặt hàng bán chạy"/>
+        </menu>
+
+    </item>
+
+</menu>
