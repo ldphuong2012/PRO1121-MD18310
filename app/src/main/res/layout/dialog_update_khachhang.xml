@@ -16,7 +16,7 @@
         android:textSize="25dp"
         android:textStyle="bold"
         android:layout_marginBottom="10dp"
-        android:text="Sửa thành viên"/>
+        android:text="Sửa khách hàng"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,8 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
             android:textColor="@color/white"
-            android:background="@drawable/custom_btn_dialog"
-            android:text="Update" />
+            android:backgroundTint="@color/green"
+            android:text="Save" />
 
         <Button
             android:id="@+id/btn_huy"
@@ -95,8 +95,7 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:textColor="@color/white"
-            android:background="@drawable/custom_btn_dialog"
-            />
+            android:backgroundTint="@color/green"/>
     </LinearLayout>
 
 
