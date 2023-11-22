@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:text="Sửa thông tin nhân viên"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#4CAF50"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/extupdatehotentv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/layout_item"
+        android:hint="Nhập họ tên"/>
+    <EditText
+        android:id="@+id/extupdatetuoitv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="10dp"
+        android:hint="Nhập tuổi"/>
+    <EditText
+        android:id="@+id/extupdatechucvutv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="10dp"
+        android:hint="Nhập chức vụ"/>
+    <EditText
+        android:id="@+id/extupdtesdttv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="10dp"
+        android:hint="Nhập số điện thoại"/>
+    <EditText
+        android:id="@+id/extupdateemailtv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="10dp"
+        android:hint="Nhập email"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp">
+        <Button
+            android:id="@+id/btncapnhaptv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cập nhập"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginRight="30dp"
+            />
+        <Button
+            android:id="@+id/btnhuycapnhaptv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
