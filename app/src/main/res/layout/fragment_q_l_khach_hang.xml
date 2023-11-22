@@ -6,9 +6,32 @@
     tools:context=".Fragment_Nav.QLKhachHangFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/search_kh"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:drawableRight="@drawable/ic_search"
+        android:paddingEnd="20dp"
+        android:paddingStart="10dp"
+        android:drawablePadding="8dp"
+        android:hint="Search..."
+        android:background="@drawable/custom_edt_khachhang"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_qlkh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Quản lý khách hàng" />
+        android:layout_marginTop="65dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_khachhang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/ic_add"
+        android:contentDescription="TODO" />
 
 </FrameLayout>
