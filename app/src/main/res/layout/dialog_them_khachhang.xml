@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="450dp"
+    android:padding="10dp"
+    android:layout_margin="15dp"
+    android:layout_gravity="center"
+    android:background="@drawable/custom_dialog"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/green"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:text="Thêm thành viên"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:paddingStart="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="Mã khách hàng:"
+        />
+    <EditText
+        android:id="@+id/edt_makh_add"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/custom_edt_khachhang"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_marginBottom="5dp"
+        android:text="Tên khách hàng:"
+        />
+    <EditText
+        android:id="@+id/edt_tenkh_add"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/custom_edt_khachhang"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Địa chỉ:"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_marginBottom="5dp"
+        />
+    <EditText
+        android:id="@+id/edt_diaChi_add"
+        android:layout_width="match_parent"
+        android:paddingStart="10dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_edt_khachhang"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_marginBottom="5dp"
+        android:text="Số Điện Thoại:"
+        />
+    <EditText
+        android:id="@+id/edt_sdt_add"
+        android:layout_width="match_parent"
+        android:background="@drawable/custom_edt_khachhang"
+        android:layout_marginBottom="5dp"
+        android:paddingStart="10dp"
+        android:layout_height="50dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_add_kh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/custom_btn_dialog"
+            android:text="ADD"/>
+        <Button
+            android:id="@+id/btn_huy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@drawable/custom_btn_dialog"
+            android:text="Cancel"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
