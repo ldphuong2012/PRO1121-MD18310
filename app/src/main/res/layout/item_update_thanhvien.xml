@@ -3,77 +3,113 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
     android:layout_margin="10dp">
 
     <TextView
-        android:text="Sửa thông tin nhân viên"
+        android:text="Sửa nhân viên "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#4CAF50"
+
         android:textSize="30dp"
         android:textStyle="bold"
         android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nhập họ tên nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
+   <!-- extupdatehotentv);
+    EditText edttuoi = dialog1.findViewById(R.id.extupdatetuoitv);
+    EditText edtchucvu = dialog1.findViewById(R.id.extupdatechucvutv);
+    EditText edtsdt = dialog1.findViewById(R.id.extupdtesdttv);
+    EditText email = dialog1.findViewById(R.id.extupdateemailtv);
+    Button btnupdate = dialog1.findViewById(R.id.btncapnhaptv);
+    Button btnhuy = dialog1.findViewById(R.id.btnhuycapnhaptv);-->
     <EditText
         android:id="@+id/extupdatehotentv"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/layout_item"
-        android:hint="Nhập họ tên"/>
+        android:text="Nhập tuổi nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/extupdatetuoitv"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="10dp"
-        android:hint="Nhập tuổi"/>
+        android:text="Nhập chức vụ nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/extupdatechucvutv"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="10dp"
-        android:hint="Nhập chức vụ"/>
+        android:text="Nhập số điện thoại nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/extupdtesdttv"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="10dp"
-        android:hint="Nhập số điện thoại"/>
+        android:text="Nhập email nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/extupdateemailtv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="10dp"
-        android:hint="Nhập email"/>
+        android:layout_height="45dp"
+
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"/>
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginTop="30dp">
         <Button
             android:id="@+id/btncapnhaptv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cập nhập"
-            android:textStyle="bold"
-            android:textSize="20dp"
+            android:text="Save"
             android:layout_marginRight="30dp"
-            />
+            android:backgroundTint="@color/green"/>
         <Button
             android:id="@+id/btnhuycapnhaptv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hủy"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            />
+            android:text="Cancle"
+            android:backgroundTint="@color/green"/>
     </LinearLayout>
-
 
 
 
