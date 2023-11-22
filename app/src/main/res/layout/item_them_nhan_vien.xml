@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:text="Thêm nhân viên mới"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#4CAF50"
+        android:textSize="27dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/extthemhotentv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="15dp"
+        android:hint="Nhập họ tên"/>
+    <EditText
+        android:id="@+id/extthemtuoitv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="10dp"
+        android:hint="Nhập tuoi"/>
+
+    <EditText
+        android:id="@+id/edthemchucvutv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="10dp"
+        android:hint="Thêm chức vụ"/>
+    <EditText
+        android:id="@+id/edsdttv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="10dp"
+        android:hint="Thêm số điện thoại"/>
+    <EditText
+        android:id="@+id/edemailtv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="10dp"
+        android:hint="Thêm email"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
+        <Button
+            android:id="@+id/btnthemtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm"
+            android:layout_marginRight="30dp"/>
+        <Button
+            android:id="@+id/btnhuytv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"/>
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
