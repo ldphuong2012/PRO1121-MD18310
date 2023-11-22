@@ -140,31 +140,26 @@ public class ProductAdapter  extends RecyclerView.Adapter<MyViewHolder>{
                 dialog.show();
             }
         });
-        holder.img_edit_pr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.img_edit_pr.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(context, UpdateProduct.class);
+      holder.recCard.setOnLongClickListener(new View.OnLongClickListener() {
+          @Override
+          public boolean onLongClick(View v) {
+              Intent intent = new Intent(context, UpdateProduct.class);
 
-                        // Lấy thông tin từ mục được chọn
-                        Product selectedProduct = productList.get(holder.getAdapterPosition());
+              // Lấy thông tin từ mục được chọn
+              Product selectedProduct = productList.get(holder.getAdapterPosition());
 
-                        intent.putExtra("Name", selectedProduct.getName());
-                        intent.putExtra("Price", selectedProduct.getPrice());
-                        intent.putExtra("TypeProduct", selectedProduct.getTypeProduct());
-                        intent.putExtra("Number", selectedProduct.getNumber());
-                        intent.putExtra("Description", selectedProduct.getDescription());
-                        intent.putExtra("Image", selectedProduct.getImage());
-                        intent.putExtra("Key", selectedProduct.getKey());
+              intent.putExtra("Name", selectedProduct.getName());
+              intent.putExtra("Price", selectedProduct.getPrice());
+              intent.putExtra("TypeProduct", selectedProduct.getTypeProduct());
+              intent.putExtra("Number", selectedProduct.getNumber());
+              intent.putExtra("Description", selectedProduct.getDescription());
+              intent.putExtra("Image", selectedProduct.getImage());
+              intent.putExtra("Key", selectedProduct.getKey());
 
-                        context.startActivity(intent);
-                    }
-                });
-
-            }
-        });
+              context.startActivity(intent);
+              return false;
+          }
+      });
 
 
 
@@ -196,7 +191,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         recPrice=itemView.findViewById(R.id.recPrice);
         recCard=itemView.findViewById(R.id.recCard);
         img_delete_pr=itemView.findViewById(R.id.img_delete_pr);
-        img_edit_pr=itemView.findViewById(R.id.img_edit_pr);
+
 
     }
 }

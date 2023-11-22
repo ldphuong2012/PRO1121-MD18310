@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -38,6 +39,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Objects;
 
 public class UpdateProduct extends AppCompatActivity {
+    TextView tv_cong,tv_tru;
     ImageView updateImg;
     Button btn_update;
     EditText updateName,updatePrice,updateTypePr,updateNumber,updateDes;
@@ -58,6 +60,35 @@ public class UpdateProduct extends AppCompatActivity {
         updateTypePr=findViewById(R.id.updateTypePr);
         updateNumber=findViewById(R.id.updateNumber);
         updateDes=findViewById(R.id.updateDes);
+        tv_cong= findViewById(R.id.tv_cong_update);
+        tv_cong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String curentText=updateNumber.getText().toString();
+                int curentValue=0;
+                if (!curentText.isEmpty()){
+                    curentValue = Integer.parseInt(curentText);
+
+                }
+                int newValue = curentValue+1;
+                updateNumber.setText(String.valueOf(newValue));
+            }
+        });
+        tv_tru= findViewById(R.id.tv_tru_update);
+        tv_tru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String curentText=updateNumber.getText().toString();
+                int curentValue=0;
+                if (!curentText.isEmpty()){
+                    curentValue = Integer.parseInt(curentText);
+
+                }
+                int newValue = Math.max(0, curentValue - 1);
+                updateNumber.setText(String.valueOf(newValue));
+
+            }
+        });
         btn_update= findViewById(R.id.btn_update);
 
 

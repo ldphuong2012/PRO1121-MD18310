@@ -9,46 +9,79 @@
         android:text="Thêm nhân viên mới"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#4CAF50"
-        android:textSize="27dp"
+
+        android:textSize="25dp"
         android:textStyle="bold"
         android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nhập họ tên nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/extthemhotentv"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="15dp"
-        android:hint="Nhập họ tên"/>
+        android:text="Nhập tuổi nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/extthemtuoitv"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"
+       />
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="10dp"
-        android:hint="Nhập tuoi"/>
-
+        android:text="Nhập chức vụ nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/edthemchucvutv"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="10dp"
-        android:hint="Thêm chức vụ"/>
+        android:text="Nhập số điện thoại nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/edsdttv"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="10dp"
-        android:hint="Thêm số điện thoại"/>
+        android:text="Nhập email nhân viên"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
     <EditText
         android:id="@+id/edemailtv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/layout_item"
-        android:layout_marginTop="10dp"
-        android:hint="Thêm email"/>
+        android:layout_height="45dp"
+
+        android:paddingLeft="10dp"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,13 +93,15 @@
             android:id="@+id/btnthemtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm"
-            android:layout_marginRight="30dp"/>
+            android:text="Save"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/green"/>
         <Button
             android:id="@+id/btnhuytv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hủy"/>
+            android:text="Cancle"
+            android:backgroundTint="@color/green"/>
     </LinearLayout>
 
 

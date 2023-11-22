@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_duan1.DTO.Product;
@@ -41,6 +42,7 @@ public class UploadProduct extends AppCompatActivity {
     EditText uploadName,uploadPrice,uploadTypePr,uploadNumber,uploadDes;
     String imageURL;
     Uri uri;
+    TextView tv_cong_pr,tv_tru_pr;
 
 
 
@@ -53,6 +55,36 @@ public class UploadProduct extends AppCompatActivity {
         uploadPrice = findViewById(R.id.uploadPrice);
         uploadTypePr = findViewById(R.id.uploadTypePr);
         uploadNumber = findViewById(R.id.uploadNumber);
+        uploadDes = findViewById(R.id.uploadDes);
+        tv_tru_pr = findViewById(R.id.tv_tru_upload);
+        tv_tru_pr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String curentText=uploadNumber.getText().toString();
+                int curentValue=0;
+                if (!curentText.isEmpty()){
+                    curentValue = Integer.parseInt(curentText);
+
+                }
+                int newValue = Math.max(0, curentValue - 1);
+                uploadNumber.setText(String.valueOf(newValue));
+
+            }
+        });
+        tv_cong_pr= findViewById(R.id.tv_cong_upload);
+        tv_cong_pr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String curentText=uploadNumber.getText().toString();
+                int curentValue=0;
+                if (!curentText.isEmpty()){
+                    curentValue = Integer.parseInt(curentText);
+
+                }
+                int newValue = curentValue+1;
+                uploadNumber.setText(String.valueOf(newValue));
+            }
+        });
         uploadDes = findViewById(R.id.uploadDes);
         btn_add = findViewById(R.id.btn_add);
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
