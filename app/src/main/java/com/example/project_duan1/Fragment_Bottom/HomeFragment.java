@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
         recyclerViewMain= view.findViewById(R.id.rcv_allproducts);
 
 
-       /*Loaddata();*/
+      Loaddata();
 
 
 
@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
         viewFlipper.setInAnimation(slide_in);
         viewFlipper.setOutAnimation(slide_out);
     }
-    /*private void Loaddata() {
+    private void Loaddata() {
         productList = new ArrayList<>();
         adapterMain = new ProductAdapter_Main(getContext(), productList);
         recyclerViewMain.setAdapter(adapterMain);
@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment {
                     // Thêm sản phẩm vào danh sách
                     productList.add(product);
                 }
-
+                adapterMain.notifyDataSetChanged();
                 // Cập nhật RecyclerView khi dữ liệu thay đổi
 
             }
@@ -130,8 +130,8 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Xử lý khi có lỗi xảy ra trong quá trình truy vấn Firebase
             }
-        });*/
-
+        });
+    }
 
 
 }

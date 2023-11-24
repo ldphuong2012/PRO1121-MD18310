@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="210dp"
+    android:layout_width="190dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recCardMain"
@@ -13,16 +13,15 @@
     app:cardElevation="8dp"
     >
 <LinearLayout
-    android:layout_width="200dp"
-    android:layout_height="200dp"
+    android:layout_width="180dp"
+    android:layout_height="170dp"
     android:layout_gravity="center"
     android:orientation="vertical">
     <ImageView
         android:id="@+id/img_pr_main"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
+        android:layout_width="110dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:src="@drawable/ic_image"/>
     <TextView
         android:id="@+id/tv_namePr_main"
@@ -30,14 +29,16 @@
         android:layout_height="wrap_content"
         android:text="Tên sản phẩm"
         android:gravity="center"
-        android:textSize="25dp"/>
+        android:textSize="23dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+       >
     <TextView
         android:id="@+id/tv_pricePr_main"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Giá sản phẩm"
        android:textColor="#FF0000"
@@ -53,7 +54,7 @@
                android:src="@drawable/ic_add_white"
                android:background="@drawable/circular_green_background"
                android:layout_marginTop="5dp"
-               android:layout_marginLeft="60dp"
+               android:layout_marginLeft="30dp"
                />
 
 

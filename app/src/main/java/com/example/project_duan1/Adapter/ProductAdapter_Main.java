@@ -42,7 +42,7 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         Glide.with(context).load(productList.get(position).getImage()).into(holder.img_pr_main);
         holder.tv_name_pr_main.setText(productList.get(position).getName());
 
-        holder.tv_price_pr_main.setText(productList.get(position).getPrice());
+        holder.tv_price_pr_main.setText("Giá: "+ productList.get(position).getPrice());
         holder.recCardMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
