@@ -47,12 +47,13 @@
 
 
            <ImageView
+               android:id="@+id/img_addCart"
                android:layout_width="30dp"
                android:layout_height="30dp"
                android:src="@drawable/ic_add_white"
                android:background="@drawable/circular_green_background"
                android:layout_marginTop="5dp"
-               android:layout_marginLeft="50dp"
+               android:layout_marginLeft="60dp"
                />
 
 

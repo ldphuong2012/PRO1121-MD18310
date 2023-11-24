@@ -181,7 +181,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
     ImageView recImage;
     TextView recName,recNumber,recPrice;
     CardView recCard;
-    ImageView img_delete_pr,img_edit_pr;
+    ImageView img_delete_pr;
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
