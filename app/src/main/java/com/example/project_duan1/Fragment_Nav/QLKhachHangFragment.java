@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_duan1.Adapter.KhachHang_Adapter;
+import com.example.project_duan1.DTO.Product;
 import com.example.project_duan1.Model.Khachhang;
 import com.example.project_duan1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,6 +47,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class QLKhachHangFragment extends Fragment {
+    SearchView search_kh;
 
     RecyclerView recyclerview_qlkh;
     FloatingActionButton add_khachhang;
@@ -67,31 +70,17 @@ public class QLKhachHangFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment QLKhachHangFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static QLKhachHangFragment newInstance(String param1, String param2) {
+
+    public static QLKhachHangFragment newInstance() {
         QLKhachHangFragment fragment = new QLKhachHangFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @SuppressLint("MissingInflatedId")
@@ -102,7 +91,19 @@ public class QLKhachHangFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_q_l_khach_hang, container, false);
         recyclerview_qlkh = view.findViewById(R.id.recyclerview_qlkh);
         add_khachhang = view.findViewById(R.id.add_khachhang);
-        EditText search_kh = view.findViewById(R.id.search_kh);
+         search_kh = view.findViewById(R.id.search_kh);
+        search_kh.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchList(newText);
+                return true;
+            }
+        });
 
 
         // Initialize the adapter
@@ -138,22 +139,8 @@ public class QLKhachHangFragment extends Fragment {
         });
 
         search_kh.clearFocus();
-        search_kh.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                khachHangAdapter.getFilter().filter(charSequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         // Fetch data from Firebase
         getListKhachHangdatabase();
@@ -392,4 +379,15 @@ public class QLKhachHangFragment extends Fragment {
                 .setNegativeButton("Hủy",null)
                 .show();
     }
+    public void searchList(String text) {
+        ArrayList<Khachhang> searchList = new ArrayList<>();
+        for (Khachhang dataclass : mListKhachhang) {
+            String soDienThoaiKH = dataclass.getSoDienThoaiKH();
+            if (soDienThoaiKH != null && soDienThoaiKH.toLowerCase().contains(text.toLowerCase())) {
+                searchList.add(dataclass);
+            }
+        }
+        khachHangAdapter.searchProduct(searchList);
+    }
+
 }

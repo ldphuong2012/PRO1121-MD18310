@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project_duan1.DTO.Product;
 import com.example.project_duan1.Model.Khachhang;
 import com.example.project_duan1.R;
 
@@ -115,6 +116,11 @@ public class KhachHang_Adapter extends RecyclerView.Adapter<KhachHang_Adapter.Vi
         }
         return 0;
     }
+    public void  searchProduct(ArrayList<Khachhang> searchList){
+        mlistKhachHang=searchList;
+        notifyDataSetChanged();
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txt_makhachhang, txt_tenkhachhang, txt_diachi, txt_sodienthoai;
