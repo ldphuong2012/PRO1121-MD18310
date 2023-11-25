@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,8 +39,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerViewMain;
     ProductAdapter_Main adapterMain;
     List<Product> productList;
-    DatabaseReference databaseReference;
-    ValueEventListener eventListener;
+  androidx.appcompat.widget.SearchView searchView;
 
 
 
@@ -74,6 +74,19 @@ public class HomeFragment extends Fragment {
         viewFlipper= view.findViewById(R.id.view_flipper);
         ActionViewFlipper();
         recyclerViewMain= view.findViewById(R.id.rcv_allproducts);
+        searchView= view. findViewById(R.id.searchViewHome);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchList(newText);
+                return true;
+            }
+        });
 
 
       Loaddata();
@@ -132,6 +145,15 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    private void searchList(String text){
+            ArrayList<Product> searchList = new ArrayList<>();
+            for (Product dataclass : productList) {
+                if (dataclass.getName().toLowerCase().contains(text.toLowerCase())) {
+                    searchList.add(dataclass);
+                }
+            }
+            adapterMain.searchProduct(searchList);
+        }
+    }
 
 
-}

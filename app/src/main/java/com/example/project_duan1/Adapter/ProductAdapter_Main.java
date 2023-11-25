@@ -18,6 +18,7 @@ import com.example.project_duan1.DTO.Product;
 import com.example.project_duan1.Detail.DetailProduct;
 import com.example.project_duan1.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Main.MainViewHolder> {
@@ -42,7 +43,7 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         Glide.with(context).load(productList.get(position).getImage()).into(holder.img_pr_main);
         holder.tv_name_pr_main.setText(productList.get(position).getName());
 
-        holder.tv_price_pr_main.setText("Giá: "+ productList.get(position).getPrice());
+        holder.tv_price_pr_main.setText("Giá: "+ productList.get(position).getPrice()+"đ");
         holder.recCardMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +65,10 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
 
             }
         });
+    }
+    public void  searchProduct(ArrayList<Product> searchList){
+        productList=searchList;
+        notifyDataSetChanged();
     }
 
     @Override
