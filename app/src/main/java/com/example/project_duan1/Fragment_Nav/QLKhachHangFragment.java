@@ -57,17 +57,7 @@ public class QLKhachHangFragment extends Fragment {
 
     TextView txt_makhachhang, txt_tenkhachhang, txt_diachi, txt_sodienthoai;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public QLKhachHangFragment() {
-        // Required empty public constructor
     }
 
 
