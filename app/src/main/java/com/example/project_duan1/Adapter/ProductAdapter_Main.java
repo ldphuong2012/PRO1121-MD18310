@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.project_duan1.DTO.Product;
 import com.example.project_duan1.Detail.DetailProduct;
+import com.example.project_duan1.Detail.DetailProduct_Main;
 import com.example.project_duan1.R;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         holder.recCardMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(context, DetailProduct.class);
+                Intent intent= new Intent(context, DetailProduct_Main.class);
                 intent.putExtra("Image",productList.get(holder.getAdapterPosition()).getImage());
                 intent.putExtra("Name",productList.get(holder.getAdapterPosition()).getName());
                 intent.putExtra("Price",productList.get(holder.getAdapterPosition()).getPrice());
