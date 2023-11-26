@@ -22,6 +22,7 @@ import android.widget.ViewFlipper;
 import com.bumptech.glide.Glide;
 import com.example.project_duan1.Adapter.ProductAdapter;
 import com.example.project_duan1.Adapter.ProductAdapter_Main;
+import com.example.project_duan1.DTO.GioHang;
 import com.example.project_duan1.DTO.Product;
 import com.example.project_duan1.R;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
     ProductAdapter_Main adapterMain;
     List<Product> productList;
   androidx.appcompat.widget.SearchView searchView;
+  List<GioHang> manggiohang;
 
 
 
@@ -75,6 +77,7 @@ public class HomeFragment extends Fragment {
         ActionViewFlipper();
         recyclerViewMain= view.findViewById(R.id.rcv_allproducts);
         searchView= view. findViewById(R.id.searchViewHome);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
