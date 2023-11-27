@@ -1,19 +1,24 @@
 package com.example.project_duan1.DTO;
 
 public class GioHang {
+    String id_pr;
     String img_pr;
     String name_pr;
     String price_pr;
-    String number_pr;
 
-    public GioHang(String img_pr, String name_pr, String price_pr, String number_pr) {
+    public GioHang(String id_pr, String img_pr, String name_pr, String price_pr) {
+        this.id_pr = id_pr;
         this.img_pr = img_pr;
         this.name_pr = name_pr;
         this.price_pr = price_pr;
-        this.number_pr = number_pr;
     }
 
-    public GioHang() {
+    public String getId_pr() {
+        return id_pr;
+    }
+
+    public void setId_pr(String id_pr) {
+        this.id_pr = id_pr;
     }
 
     public String getImg_pr() {
@@ -40,11 +45,6 @@ public class GioHang {
         this.price_pr = price_pr;
     }
 
-    public String getNumber_pr() {
-        return number_pr;
-    }
-
-    public void setNumber_pr(String number_pr) {
-        this.number_pr = number_pr;
+    public GioHang() {
     }
 }

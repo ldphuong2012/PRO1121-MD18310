@@ -8,16 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project_duan1.DTO.Favourite;
+import com.example.project_duan1.DTO.GioHang;
 import com.example.project_duan1.DTO.Product;
 import com.example.project_duan1.Detail.DetailProduct;
 import com.example.project_duan1.Detail.DetailProduct_Main;
+import com.example.project_duan1.Manager.CartManager;
+import com.example.project_duan1.Manager.FavouriteManager;
 import com.example.project_duan1.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +67,19 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
 
             }
         });
+        holder.img_favourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Product clickedProduct = productList.get(holder.getAdapterPosition());
+
+                // Gọi phương thức để thêm sản phẩm vào danh sách yêu thích
+                addtoFavourite(clickedProduct);
+
+                // Hiển thị thông báo hoặc thực hiện các tác vụ khác nếu cần
+                Toast.makeText(context, "Đã thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+            }
+
+        });
         holder.img_addCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +98,7 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         return productList.size();
     }
     class MainViewHolder extends RecyclerView.ViewHolder{
-        ImageView img_pr_main,img_addCart;
+        ImageView img_pr_main,img_addCart,img_favourite;
         TextView tv_name_pr_main,tv_price_pr_main;
         CardView recCardMain;
 
@@ -88,9 +108,36 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
             tv_name_pr_main= itemView.findViewById(R.id.tv_namePr_main);
             tv_price_pr_main= itemView.findViewById(R.id.tv_pricePr_main);
             img_addCart= itemView.findViewById(R.id.img_addCart);
+            img_favourite= itemView.findViewById(R.id.img_favorite);
             recCardMain=itemView.findViewById(R.id.recCardMain);
+
 
 
         }
     }
+    private void addtoFavourite(Product product) {
+        Favourite objFavourite = new Favourite();
+        objFavourite.setImg_pr_favourite(product.getImage());
+        objFavourite.setName_pr_favourite(product.getName());
+        objFavourite.setPrice_pr_favourite(product.getPrice());
+
+        // Sử dụng CartManager để thêm mục vào giỏ hàng cục bộ
+        FavouriteManager.getInstance().addToFavorite(objFavourite);
+
+        // Thêm mục vào giỏ hàng Firebase
+        addToFirebaseFavourite(objFavourite);
+
+
+    }
+    public void addToFirebaseFavourite(Favourite favourite) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
+
+        String favouriteItemId = databaseReference.push().getKey(); // Tạo một khóa duy nhất cho sản phẩm trong danh sách yêu thích
+
+        favourite.setId_pr_favourite(favouriteItemId);
+
+        // Thêm thông tin sản phẩm vào Firebase Realtime Database
+        databaseReference.child(favouriteItemId).setValue(favourite);
+    }
+
 }

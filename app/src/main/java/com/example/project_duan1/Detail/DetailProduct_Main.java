@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.project_duan1.DTO.GioHang;
+import com.example.project_duan1.Manager.CartManager;
 import com.example.project_duan1.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,13 +63,33 @@ public class DetailProduct_Main extends AppCompatActivity {
             }
         });
     }
-    private void addtoCart(){
-        GioHang objGioHang= new GioHang();
+    private void addtoCart() {
+        GioHang objGioHang = new GioHang();
         objGioHang.setImg_pr(imageUrl);
         objGioHang.setName_pr(detailName.getText().toString());
         objGioHang.setPrice_pr(detailPrice.getText().toString());
-        manggiohang.add(objGioHang);
-        Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
 
+        // Sử dụng CartManager để thêm mục vào giỏ hàng cục bộ
+        CartManager.getInstance().addToCart(objGioHang);
+
+        // Thêm mục vào giỏ hàng Firebase
+        addToFirebaseCart(objGioHang);
+
+        Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+    }
+
+    public void addToFirebaseCart(GioHang gioHangItem) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Cart"); // Thay thế "user_id_here" bằng ID người dùng thực tế hoặc một định danh duy nhất
+
+        String cartItemId = databaseReference.push().getKey(); // Tạo một khóa duy nhất cho mục giỏ hàng
+
+        GioHang cartItem = new GioHang();
+        cartItem.setId_pr(cartItemId);
+        cartItem.setName_pr(gioHangItem.getName_pr());
+        cartItem.setPrice_pr(gioHangItem.getPrice_pr());
+        cartItem.setImg_pr(gioHangItem.getImg_pr());
+
+        // Thêm mục giỏ hàng vào Firebase Realtime Database
+        databaseReference.child(cartItemId).setValue(cartItem);
     }
 }

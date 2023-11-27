@@ -14,6 +14,11 @@ import android.view.ViewGroup;
 import com.example.project_duan1.Adapter.CartAdapter;
 import com.example.project_duan1.DTO.GioHang;
 import com.example.project_duan1.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,12 +62,32 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("Cart");
+
         rec_Cart= view.findViewById(R.id.recycler_Cart);
-        if (manggiohang == null) {
-            manggiohang = new ArrayList<>();
-        }
+
 
         adapter = new CartAdapter(manggiohang, getContext());
         rec_Cart.setAdapter(adapter);
+        cartRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                manggiohang.clear(); // Xóa danh sách cũ trước khi thêm dữ liệu mới
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    GioHang gioHangItem = snapshot.getValue(GioHang.class);
+                    manggiohang.add(gioHangItem);
+                }
+
+                adapter.notifyDataSetChanged(); // Cập nhật RecyclerView khi có thay đổi
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
     }
 }

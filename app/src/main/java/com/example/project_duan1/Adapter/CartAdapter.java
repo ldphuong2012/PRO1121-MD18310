@@ -1,6 +1,7 @@
 package com.example.project_duan1.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder
 
     @Override
     public int getItemCount() {
+        Log.d("Cart", "getItemCount: "+gioHangList.size());
         return gioHangList.size();
     }
 
