@@ -158,7 +158,9 @@ public class UploadProduct extends AppCompatActivity {
 
     }
         public void uploadData(){
-        String name = uploadName.getText().toString();
+            String productId = String.valueOf(System.currentTimeMillis());
+
+            String name = uploadName.getText().toString();
         String price = uploadPrice.getText().toString();
         String typePR = uploadTypePr.getText().toString();
         String number = uploadNumber.getText().toString();
@@ -181,9 +183,8 @@ public class UploadProduct extends AppCompatActivity {
         else if (TextUtils.isEmpty(des)){
             Toast.makeText(this, "Vui lòng nhập mô tả sản phẩm", Toast.LENGTH_SHORT).show();
         }else {
-
-            Product product = new Product(imageURL, name, price, typePR, number, des);
-            FirebaseDatabase.getInstance().getReference("Products").child(name).setValue(product)
+            Product product = new Product(productId,imageURL, name, price, typePR, number, des);
+            FirebaseDatabase.getInstance().getReference("Products").child(productId).setValue(product)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

@@ -1,6 +1,7 @@
 package com.example.project_duan1.DTO;
 
 public class Product {
+    private String ID_pr;
     private String Image;
     private String Name;
     private String Price;
@@ -12,7 +13,8 @@ public class Product {
 
     }
 
-    public Product(String image, String name, String price, String typeProduct, String number, String description) {
+    public Product(String ID_pr, String image, String name, String price, String typeProduct, String number, String description) {
+        this.ID_pr = ID_pr;
         Image = image;
         Name = name;
         Price = price;

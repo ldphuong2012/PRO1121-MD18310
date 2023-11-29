@@ -28,6 +28,7 @@
         android:paddingLeft="10dp"
         android:background="@drawable/lavender_border"
         android:layout_marginTop="5dp"
+        android:focusable="false"
         />
     <TextView
         android:layout_width="match_parent"

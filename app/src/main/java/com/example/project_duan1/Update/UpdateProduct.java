@@ -181,6 +181,7 @@ public class UpdateProduct extends AppCompatActivity {
         });
     }
     public void updateData(){
+        String productId = String.valueOf(System.currentTimeMillis());
         name = updateName.getText().toString().trim();
         price = updatePrice.getText().toString().trim();
         typePr = updateTypePr.getText().toString().trim();
@@ -201,7 +202,7 @@ public class UpdateProduct extends AppCompatActivity {
         else if (TextUtils.isEmpty(des)){
             Toast.makeText(this, "Vui lòng nhập mô tả sản phẩm", Toast.LENGTH_SHORT).show();
         }else {
-            Product dataclass = new Product(imageUrl, name, price, typePr, number, des);
+            Product dataclass = new Product(productId,imageUrl, name, price, typePr, number, des);
 
 
             databaseReference.setValue(dataclass).addOnCompleteListener(new OnCompleteListener<Void>() {
