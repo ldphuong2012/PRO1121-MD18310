@@ -82,6 +82,7 @@ public class ProductAdapter  extends RecyclerView.Adapter<MyViewHolder>{
                 Product selectedProduct = productList.get(holder.getAdapterPosition());
                 imageUrl = selectedProduct.getImage();
                 key = selectedProduct.getKey();
+                String productId = selectedProduct.getID_pr();
 
                 StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
 
@@ -93,7 +94,7 @@ public class ProductAdapter  extends RecyclerView.Adapter<MyViewHolder>{
                         storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                reference.child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                reference.child(productId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();

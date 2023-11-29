@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +38,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
     @Override
     public void onBindViewHolder(@NonNull FavouriteViewHolder holder, int position) {
         Favourite objFavourite= favouriteList.get(position);
+
         holder.recName_favourite.setText(objFavourite.getName_pr_favourite());
         holder.recPrice_favourite.setText(objFavourite.getPrice_pr_favourite());
         Glide.with(holder.itemView.getContext()).load(objFavourite.getImg_pr_favourite()).into(holder.img_favourite);
@@ -45,7 +47,6 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
 
     @Override
     public int getItemCount() {
-        Log.d("TAG", "getItemCount: "+favouriteList.size());
         return favouriteList.size();
     }
 
@@ -54,7 +55,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         ImageView img_favourite,img_delete_favourite;
         public FavouriteViewHolder(@NonNull View itemView) {
             super(itemView);
-            img_favourite= itemView.findViewById(R.id.img_favorite);
+            img_favourite= itemView.findViewById(R.id.recImage_favourite);
             img_delete_favourite= itemView.findViewById(R.id.img_delete_pr_favourite);
             recName_favourite= itemView.findViewById(R.id.recName_favourite);
             recPrice_favourite= itemView.findViewById(R.id.recPrice_favourite);

@@ -23,8 +23,12 @@ import com.example.project_duan1.Detail.DetailProduct_Main;
 import com.example.project_duan1.Manager.CartManager;
 import com.example.project_duan1.Manager.FavouriteManager;
 import com.example.project_duan1.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,7 @@ import java.util.List;
 public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Main.MainViewHolder> {
     Context context;
     List<Product> productList;
+     boolean isFavourite= false;
 
     public ProductAdapter_Main(Context context, List<Product> productList) {
         this.context = context;
@@ -70,16 +75,50 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         holder.img_favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Product product= productList.get(position);
+                // Kiểm tra trạng thái yêu thích của sản phẩm
                 Product clickedProduct = productList.get(holder.getAdapterPosition());
 
-                // Gọi phương thức để thêm sản phẩm vào danh sách yêu thích
+
+                if (isFavourite== false) {
+                    isFavourite = true;
+                    Toast.makeText(context, "Đã thêm vào danh mục yêu thích ♥", Toast.LENGTH_SHORT).show();
+                    holder.img_favourite.setImageResource(R.drawable.ic_favorite);
+                    product.setFavorite(isFavourite);
+
+                    // Nếu trạng thái = 1 (đã yêu thích)
+                    addtoFavourite(clickedProduct);
+                    notifyDataSetChanged();
+                    // Nếu sản phẩm đã được đánh dấu yêu thích, gọi phương thức xóa sản phẩm khỏi danh sách yêu thích
 
 
-                // Hiển thị thông báo hoặc thực hiện các tác vụ khác nếu cần
-                Toast.makeText(context, "Đã thêm vào  yêu thích", Toast.LENGTH_SHORT).show();
+                } else {
+                    isFavourite = false;
+                    Toast.makeText(context, "Đã bỏ yêu thích!", Toast.LENGTH_SHORT).show();
+                    holder.img_favourite.setImageResource(R.drawable.ic_border_favorite);
+                    product.setFavorite(isFavourite);// Nếu trạng thái = 0 (chưa yêu thích)
+                    // Nếu sản phẩm chưa được đánh dấu yêu thích, gọi phương thức thêm sản phẩm vào danh sách yêu thích
+                    deleteFromFirebaseFavourite(clickedProduct.getName());
+
+//                    Toast.makeText(context, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                }
+
+                if (product.isFavorite() == true) {
+                    isFavourite = true;
+                    holder.img_favourite.setImageResource(R.drawable.ic_favorite);
+                } else {
+                    isFavourite = false;
+                    holder.img_favourite.setImageResource(R.drawable.ic_border_favorite);
+                }
+
+                // Cập nhật trạng thái yêu thích của sản phẩm sau khi thay đổi
+
             }
 
         });
+
+
+
         holder.img_addCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,19 +183,29 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
 
 
 
-private void deleteFromFavourite(Product product) {
-    // Sử dụng FavouriteManager để xóa mục khỏi giỏ hàng cục bộ
+    public void deleteFromFirebaseFavourite(String name) {
+        String columnName = "name_pr_favourite"; // Tên cột bạn muốn xóa// Giá trị trong cột "name_pr_favourite" bạn muốn xóa
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
-    // Xóa mục khỏi giỏ hàng Firebase
-    String favouriteItemId = databaseReference.push().getKey();
-    databaseReference.child(favouriteItemId).removeValue();
-}
-
-    public void deleteFromFirebaseFavourite(String favouriteId) {
+// Xác định nút đích trong Firebase Realtime Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
-        String favouriteItemId = databaseReference.push().getKey();
-        // Xóa thông tin sản phẩm khỏi Firebase Realtime Database dựa trên favouriteId
-        databaseReference.child(favouriteId).removeValue();
+
+// Tạo câu truy vấn để xóa mục dựa trên giá trị của cột "name_pr_favourite"
+        Query query = databaseReference.orderByChild(columnName).equalTo(name);
+
+// Thực hiện câu truy vấn và xóa mục tương ứng
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    snapshot.getRef().removeValue(); // Xóa mục khỏi cơ sở dữ liệu
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi (nếu cần)
+            }
+        });
     }
 }
+

@@ -1,6 +1,7 @@
 package com.example.project_duan1.DTO;
 
 public class Product {
+    private boolean isFavorite;
     private String ID_pr;
     private String Image;
     private String Name;
@@ -13,6 +14,13 @@ public class Product {
 
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
     public Product(String ID_pr, String image, String name, String price, String typeProduct, String number, String description) {
         this.ID_pr = ID_pr;
         Image = image;
