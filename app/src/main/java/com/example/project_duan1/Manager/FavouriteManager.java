@@ -28,6 +28,22 @@ public class FavouriteManager {
     public void addToFavorite(Favourite item) {
         favouriteList.add(item);
     }
+    public void DelFavorite(String id) {
+        // Tìm vị trí của mục trong danh sách yêu thích dựa trên id
+        int index = -1;
+        for (int i = 0; i < favouriteList.size(); i++) {
+            Favourite item = favouriteList.get(i);
+            if (item.getId_pr_favourite().equals(id)) {
+                index = i;
+                break;
+            }
+        }
+
+        // Xóa mục khỏi danh sách yêu thích nếu tìm thấy
+        if (index != -1) {
+            favouriteList.remove(index);
+        }
+    }
 
     // Add any other methods you may need
 }

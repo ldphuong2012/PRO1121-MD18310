@@ -78,4 +78,12 @@ public class Product {
     public void setKey(String key) {
         this.key = key;
     }
+
+    public String getID_pr() {
+        return ID_pr;
+    }
+
+    public void setID_pr(String ID_pr) {
+        this.ID_pr = ID_pr;
+    }
 }

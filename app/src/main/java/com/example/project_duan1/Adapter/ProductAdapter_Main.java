@@ -73,10 +73,10 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
                 Product clickedProduct = productList.get(holder.getAdapterPosition());
 
                 // Gọi phương thức để thêm sản phẩm vào danh sách yêu thích
-                addtoFavourite(clickedProduct);
+
 
                 // Hiển thị thông báo hoặc thực hiện các tác vụ khác nếu cần
-                Toast.makeText(context, "Đã thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Đã thêm vào  yêu thích", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -129,6 +129,7 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
 
 
     }
+
     public void addToFirebaseFavourite(Favourite favourite) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
 
@@ -140,4 +141,22 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         databaseReference.child(favouriteItemId).setValue(favourite);
     }
 
+
+
+
+private void deleteFromFavourite(Product product) {
+    // Sử dụng FavouriteManager để xóa mục khỏi giỏ hàng cục bộ
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
+    // Xóa mục khỏi giỏ hàng Firebase
+    String favouriteItemId = databaseReference.push().getKey();
+    databaseReference.child(favouriteItemId).removeValue();
+}
+
+    public void deleteFromFirebaseFavourite(String favouriteId) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
+        String favouriteItemId = databaseReference.push().getKey();
+        // Xóa thông tin sản phẩm khỏi Firebase Realtime Database dựa trên favouriteId
+        databaseReference.child(favouriteId).removeValue();
+    }
 }
