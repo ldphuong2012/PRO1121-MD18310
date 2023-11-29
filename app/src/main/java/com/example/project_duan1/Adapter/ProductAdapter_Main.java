@@ -36,7 +36,7 @@ import java.util.List;
 public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Main.MainViewHolder> {
     Context context;
     List<Product> productList;
-     boolean isFavourite= false;
+
 
     public ProductAdapter_Main(Context context, List<Product> productList) {
         this.context = context;
@@ -75,47 +75,30 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         holder.img_favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Product product= productList.get(position);
-                // Kiểm tra trạng thái yêu thích của sản phẩm
-                Product clickedProduct = productList.get(holder.getAdapterPosition());
+                Product product = productList.get(position);
 
-
-                if (isFavourite== false) {
-                    isFavourite = true;
-                    Toast.makeText(context, "Đã thêm vào danh mục yêu thích ♥", Toast.LENGTH_SHORT).show();
-                    holder.img_favourite.setImageResource(R.drawable.ic_favorite);
-                    product.setFavorite(isFavourite);
-
-                    // Nếu trạng thái = 1 (đã yêu thích)
-                    addtoFavourite(clickedProduct);
-                    notifyDataSetChanged();
-                    // Nếu sản phẩm đã được đánh dấu yêu thích, gọi phương thức xóa sản phẩm khỏi danh sách yêu thích
-
-
-                } else {
-                    isFavourite = false;
+                if (product.getTrangThai()==1) {
+                    // Sản phẩm đã được đánh dấu yêu thích
+                    product.setTrangThai(0);
                     Toast.makeText(context, "Đã bỏ yêu thích!", Toast.LENGTH_SHORT).show();
                     holder.img_favourite.setImageResource(R.drawable.ic_border_favorite);
-                    product.setFavorite(isFavourite);// Nếu trạng thái = 0 (chưa yêu thích)
-                    // Nếu sản phẩm chưa được đánh dấu yêu thích, gọi phương thức thêm sản phẩm vào danh sách yêu thích
-                    deleteFromFirebaseFavourite(clickedProduct.getName());
 
-//                    Toast.makeText(context, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
-                }
-
-                if (product.isFavorite() == true) {
-                    isFavourite = true;
-                    holder.img_favourite.setImageResource(R.drawable.ic_favorite);
+                    // Xóa sản phẩm khỏi danh sách yêu thích trong Firebase
+                    deleteFromFirebaseFavourite(product.getName());
                 } else {
-                    isFavourite = false;
-                    holder.img_favourite.setImageResource(R.drawable.ic_border_favorite);
+                    // Sản phẩm chưa được đánh dấu yêu thích
+                    product.setTrangThai(1);
+                    Toast.makeText(context, "Đã thêm vào danh mục yêu thích ♥", Toast.LENGTH_SHORT).show();
+                    holder.img_favourite.setImageResource(R.drawable.ic_favorite);
+
+                    // Thêm sản phẩm vào danh sách yêu thích trong Firebase
+                    addtoFavourite(product);
                 }
-
-                // Cập nhật trạng thái yêu thích của sản phẩm sau khi thay đổi
-
             }
-
         });
+
+        // Các phần code khác...
+
 
 
 
@@ -183,16 +166,16 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
 
 
 
-    public void deleteFromFirebaseFavourite(String name) {
-        String columnName = "name_pr_favourite"; // Tên cột bạn muốn xóa// Giá trị trong cột "name_pr_favourite" bạn muốn xóa
+    public void deleteFromFirebaseFavourite(String id_pr_favourite) {
+        String columnName = "id_pr_favourite"; // Tên cột bạn muốn xóa
 
-// Xác định nút đích trong Firebase Realtime Database
+        // Xác định nút đích trong Firebase Realtime Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
 
-// Tạo câu truy vấn để xóa mục dựa trên giá trị của cột "name_pr_favourite"
-        Query query = databaseReference.orderByChild(columnName).equalTo(name);
+        // Tạo câu truy vấn để xóa mục dựa trên giá trị của cột "id_pr_favourite"
+        Query query = databaseReference.orderByChild(columnName).equalTo(id_pr_favourite);
 
-// Thực hiện câu truy vấn và xóa mục tương ứng
+        // Thực hiện câu truy vấn và xóa mục tương ứng
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
