@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="480dp"
+    android:layout_height="560dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment_Bottom.CartFragment"
     android:id="@+id/scoll_view_cart"

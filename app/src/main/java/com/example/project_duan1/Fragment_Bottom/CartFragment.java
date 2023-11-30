@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.project_duan1.Adapter.CartAdapter;
+import com.example.project_duan1.DTO.Favourite;
 import com.example.project_duan1.DTO.GioHang;
 import com.example.project_duan1.Manager.ChangeNumberListener;
 import com.example.project_duan1.R;
@@ -74,66 +75,43 @@ public class CartFragment extends Fragment {
         tv_tax= view.findViewById(R.id.tv_totaltax_d);
         tv_total= view.findViewById(R.id.tv_total_d);
         scrollView= view.findViewById(R.id.scoll_view_cart);
-        calculatorCart();
+        gioHangList= new ArrayList<>();
+        adapter= new CartAdapter(gioHangList,getContext());
+        rec_Cart.setAdapter(adapter);
+        DatabaseReference favouriteRef = FirebaseDatabase.getInstance().getReference("Cart");
 
-
-
-    }
-
-    private void fetchCartDetails() {
-        // Assuming you have a reference to your Firebase Database
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Your_Cart_Node");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        favouriteRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                gioHangList.clear(); // Clear the list before adding new data
+                gioHangList.clear(); // Xóa danh sách cũ trước khi thêm dữ liệu mới
 
-                // Iterate through the dataSnapshot to get cart items
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    GioHang gioHang = snapshot.getValue(GioHang.class);
-                    gioHangList.add(gioHang);
+                    GioHang gioHangItem = snapshot.getValue(GioHang.class);
+                    gioHangList.add(gioHangItem);
                 }
 
-                // Update RecyclerView and calculate cart
-                updateCartUI();
-                double cartTotal = calculatorCart();
-                // Now, you can use cartTotal as needed (e.g., display in TextView)
+                adapter.notifyDataSetChanged(); // Cập nhật RecyclerView khi có thay đổi
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle errors
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
+
+
         });
     }
 
-    private void updateCartUI() {
-        // Set up your RecyclerView and adapter here
-        // ...
-        // For example:
-        // adapter = new CartAdapter(getContext(), gioHangList);
-        // rec_Cart.setAdapter(adapter);
+
+
     }
 
-    private double calculatorCart() {
-        double fee = 0;
-        for (int i = 0; i < gioHangList.size(); i++) {
-            fee = fee + (gioHangList.get(i).getPrice_pr() *gioHangList.get(i).getNumber_pr());
-        }
 
-        // Update TextViews with calculated values
-        tv_subtotal.setText(String.valueOf(fee));
-        // You can calculate and update other values (delivery, tax, total) here
 
-        return fee;
-    }
-    public void minusNumberItem(List<GioHang> gioHangs, int position, ChangeNumberListener changeNumberListener){
-        if (gioHangs.get(position).getNumber_pr()==1){
-            gioHangs.remove(position);
-        }
-        else {
-            gioHangs.get(position).setNumber_pr(gioHangs.get(position).getNumber_pr()-1);
-        }
-    }
-}
+
+
+
+
+
+
+
