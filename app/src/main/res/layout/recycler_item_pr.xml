@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/recPrice"
             android:text="Giá tiền"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="40dp"
             android:textColor="#FF0000"
 
 
@@ -102,7 +102,7 @@
             app:layout_constraintLeft_toRightOf="@id/linear_price"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="30dp">
 
 
             <ImageView

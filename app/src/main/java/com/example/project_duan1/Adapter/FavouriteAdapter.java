@@ -56,7 +56,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         public FavouriteViewHolder(@NonNull View itemView) {
             super(itemView);
             img_favourite= itemView.findViewById(R.id.recImage_favourite);
-            img_delete_favourite= itemView.findViewById(R.id.img_delete_pr_favourite);
+
             recName_favourite= itemView.findViewById(R.id.recName_favourite);
             recPrice_favourite= itemView.findViewById(R.id.recPrice_favourite);
         }
