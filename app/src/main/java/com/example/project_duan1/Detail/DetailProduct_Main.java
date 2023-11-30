@@ -67,7 +67,8 @@ public class DetailProduct_Main extends AppCompatActivity {
         GioHang objGioHang = new GioHang();
         objGioHang.setImg_pr(imageUrl);
         objGioHang.setName_pr(detailName.getText().toString());
-        objGioHang.setPrice_pr(detailPrice.getText().toString());
+        objGioHang.setPrice_pr(Double.parseDouble(detailPrice.getText().toString()));
+        objGioHang.setNumber_pr(1);
 
         // Sử dụng CartManager để thêm mục vào giỏ hàng cục bộ
         CartManager.getInstance().addToCart(objGioHang);

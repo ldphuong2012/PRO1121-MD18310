@@ -4,14 +4,13 @@ public class GioHang {
     String id_pr;
     String img_pr;
     String name_pr;
-    String price_pr;
+    Double price_pr;
+    Integer number_pr;
 
-    public GioHang(String id_pr, String img_pr, String name_pr, String price_pr) {
-        this.id_pr = id_pr;
-        this.img_pr = img_pr;
-        this.name_pr = name_pr;
-        this.price_pr = price_pr;
-    }
+
+
+
+
 
     public String getId_pr() {
         return id_pr;
@@ -37,12 +36,29 @@ public class GioHang {
         this.name_pr = name_pr;
     }
 
-    public String getPrice_pr() {
+
+    public GioHang(String id_pr, String img_pr, String name_pr, Double price_pr, Integer number_pr) {
+        this.id_pr = id_pr;
+        this.img_pr = img_pr;
+        this.name_pr = name_pr;
+        this.price_pr = price_pr;
+        this.number_pr = number_pr;
+    }
+
+    public Double getPrice_pr() {
         return price_pr;
     }
 
-    public void setPrice_pr(String price_pr) {
+    public void setPrice_pr(Double price_pr) {
         this.price_pr = price_pr;
+    }
+
+    public Integer getNumber_pr() {
+        return number_pr;
+    }
+
+    public void setNumber_pr(Integer number_pr) {
+        this.number_pr = number_pr;
     }
 
     public GioHang() {

@@ -38,7 +38,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder
     public void onBindViewHolder(@NonNull CartViewholder holder, int position) {
         GioHang objGiohang= gioHangList.get(position);
         holder.recName_cart.setText(objGiohang.getName_pr());
-        holder.recPrice_cart.setText(objGiohang.getPrice_pr());
+        holder.recPrice_cart.setText(String.valueOf(objGiohang.getPrice_pr()));
         Glide.with(holder.itemView.getContext()).load(objGiohang.getImg_pr()).into(holder.img_cart);
 
 

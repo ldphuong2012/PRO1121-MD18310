@@ -133,7 +133,8 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         holder.img_addCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+addtoCart(product);
+                Toast.makeText(context, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -239,7 +240,49 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
             }
         });
     }
+    private void addtoCart(Product product) {
+        // Sử dụng CartManager để kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+        GioHang existingItem = CartManager.getInstance().getCartItemByName(product.getName());
 
+        if (existingItem != null) {
+            // Nếu sản phẩm đã có trong giỏ hàng, cộng thêm 1 vào số lượng
+            existingItem.setNumber_pr(existingItem.getNumber_pr() + 1);
+            // Cập nhật giỏ hàng cục bộ
+            CartManager.getInstance().updateCartItem(existingItem);
+        } else {
+            // Nếu sản phẩm chưa có trong giỏ hàng, tạo mới và đặt số lượng là 1
+            GioHang objGiohang = new GioHang();
+            objGiohang.setImg_pr(product.getImage());
+            objGiohang.setName_pr(product.getName());
+            objGiohang.setPrice_pr(Double.parseDouble(product.getPrice()));
+            objGiohang.setNumber_pr(1);
+
+            // Thêm vào giỏ hàng cục bộ
+            CartManager.getInstance().addToCart(objGiohang);
+            addToFirebaseCart(objGiohang);
+        }
+
+        // Thêm mục vào giỏ hàng Firebase
+
+
+        // Cập nhật trạng thái sản phẩm thành "isFavorite" = true
+        // ...
+    }
+
+    private void addToFirebaseCart(GioHang objGiohang) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Cart");
+
+        // Tạo một khóa duy nhất cho sản phẩm trong danh sách yêu thích
+
+        String CartItemId = databaseReference.push().getKey(); // Tạo một khóa duy nhất cho sản phẩm trong danh sách yêu thích
+
+        objGiohang.setId_pr(CartItemId);
+
+        // Cung cấp các thông tin khác cho đối tượng Favourite
+
+        // Thêm thông tin sản phẩm vào Firebase Realtime Database
+        databaseReference.child(CartItemId).setValue(objGiohang);
+    }
 }
 
 

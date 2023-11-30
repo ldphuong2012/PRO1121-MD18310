@@ -8,13 +8,15 @@
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Danh sách sản phẩm yêu thích"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:gravity="center"
         android:textStyle="bold"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"

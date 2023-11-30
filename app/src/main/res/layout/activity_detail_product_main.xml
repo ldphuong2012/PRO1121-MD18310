@@ -106,7 +106,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/detailDes_main"
         android:textSize="24dp"
         android:layout_marginTop="12dp"

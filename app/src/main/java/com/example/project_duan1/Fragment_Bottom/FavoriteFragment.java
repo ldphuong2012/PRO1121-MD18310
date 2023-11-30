@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.project_duan1.Adapter.CartAdapter;
 import com.example.project_duan1.Adapter.FavouriteAdapter;
@@ -61,6 +62,7 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         rec_Favourite = view.findViewById(R.id.rec_favourite);
         favouriteList = new ArrayList<>();
 
