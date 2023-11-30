@@ -1,7 +1,9 @@
 package com.example.project_duan1.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,10 +34,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
 
 public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Main.MainViewHolder> {
     Context context;
     List<Product> productList;
+
+
 
 
     public ProductAdapter_Main(Context context, List<Product> productList) {
@@ -52,7 +57,8 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MainViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        Product product = productList.get(position);
         Glide.with(context).load(productList.get(position).getImage()).into(holder.img_pr_main);
         holder.tv_name_pr_main.setText(productList.get(position).getName());
 
@@ -72,29 +78,51 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
 
             }
         });
+
+
+        if (product.isFavourite()) {
+            holder.img_favourite.setImageResource(R.drawable.ic_favorite);
+        } else {
+            holder.img_favourite.setImageResource(R.drawable.ic_border_favorite);
+        }
         holder.img_favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Product product = productList.get(position);
 
-                if (product.getTrangThai()==1) {
+                String productID = product.getName(); // Lấy ID của sản phẩm
+
+                if (product.isFavourite()) {
                     // Sản phẩm đã được đánh dấu yêu thích
-                    product.setTrangThai(0);
+
                     Toast.makeText(context, "Đã bỏ yêu thích!", Toast.LENGTH_SHORT).show();
-                    holder.img_favourite.setImageResource(R.drawable.ic_border_favorite);
+
 
                     // Xóa sản phẩm khỏi danh sách yêu thích trong Firebase
-                    deleteFromFirebaseFavourite(product.getName());
+                    deleteFromFirebaseFavourite(productID);
+                    product.setFavourite(false);
+                    // Cập nhật thông tin sản phẩm trong bảng "Product" trên Firebase
+                    updateProductInFirebase(product);
+                    holder.img_favourite.setImageResource(R.drawable.ic_border_favorite);
+
                 } else {
                     // Sản phẩm chưa được đánh dấu yêu thích
-                    product.setTrangThai(1);
+
                     Toast.makeText(context, "Đã thêm vào danh mục yêu thích ♥", Toast.LENGTH_SHORT).show();
-                    holder.img_favourite.setImageResource(R.drawable.ic_favorite);
+
 
                     // Thêm sản phẩm vào danh sách yêu thích trong Firebase
                     addtoFavourite(product);
+                    product.setFavourite(true);
+                    // Cập nhật thông tin sản phẩm trong bảng "Product" trên Firebase
+                    updateProductInFirebase(product);
+                    holder.img_favourite.setImageResource(R.drawable.ic_favorite);
+
+
                 }
+
+
             }
+
         });
 
         // Các phần code khác...
@@ -149,15 +177,34 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         // Thêm mục vào giỏ hàng Firebase
         addToFirebaseFavourite(objFavourite);
 
+        // Cập nhật trạng thái sản phẩm thành "isFavorite" = true
 
+
+    }
+    public void updateProductInFirebase(Product product) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Products");
+
+        // Truy cập đúng nút con của sản phẩm trong "Product" theo id của sản phẩm
+        DatabaseReference productRef = databaseReference.child(product.getID_pr());
+
+        // Cập nhật các thuộc tính của sản phẩm
+        productRef.child("isFavorite").setValue(product.isFavourite());
+        // Cập nhật các thuộc tính khác của sản phẩm
+
+        // Cập nhật thông tin sản phẩm trong Firebase Realtime Database
+        productRef.setValue(product);
     }
 
     public void addToFirebaseFavourite(Favourite favourite) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
 
+      // Tạo một khóa duy nhất cho sản phẩm trong danh sách yêu thích
+
         String favouriteItemId = databaseReference.push().getKey(); // Tạo một khóa duy nhất cho sản phẩm trong danh sách yêu thích
 
         favourite.setId_pr_favourite(favouriteItemId);
+
+        // Cung cấp các thông tin khác cho đối tượng Favourite
 
         // Thêm thông tin sản phẩm vào Firebase Realtime Database
         databaseReference.child(favouriteItemId).setValue(favourite);
@@ -166,16 +213,18 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
 
 
 
-    public void deleteFromFirebaseFavourite(String id_pr_favourite) {
-        String columnName = "id_pr_favourite"; // Tên cột bạn muốn xóa
 
-        // Xác định nút đích trong Firebase Realtime Database
+
+    public void deleteFromFirebaseFavourite(String name) {
+        String columnName = "name_pr_favourite"; // Tên cột bạn muốn xóa// Giá trị trong cột "name_pr_favourite" bạn muốn xóa
+
+// Xác định nút đích trong Firebase Realtime Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Favourites");
 
-        // Tạo câu truy vấn để xóa mục dựa trên giá trị của cột "id_pr_favourite"
-        Query query = databaseReference.orderByChild(columnName).equalTo(id_pr_favourite);
+// Tạo câu truy vấn để xóa mục dựa trên giá trị của cột "name_pr_favourite"
+        Query query = databaseReference.orderByChild(columnName).equalTo(name);
 
-        // Thực hiện câu truy vấn và xóa mục tương ứng
+// Thực hiện câu truy vấn và xóa mục tương ứng
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -190,5 +239,8 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
             }
         });
     }
+
 }
+
+
 

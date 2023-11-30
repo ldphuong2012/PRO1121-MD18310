@@ -1,7 +1,7 @@
 package com.example.project_duan1.DTO;
 
 public class Product {
-    private int TrangThai;
+    private boolean isFavourite;
     private String ID_pr;
     private String Image;
     private String Name;
@@ -15,12 +15,12 @@ public class Product {
     }
 
 
-    public int getTrangThai() {
-        return TrangThai;
+    public boolean isFavourite() {
+        return isFavourite;
     }
 
-    public void setTrangThai(int trangThai) {
-        TrangThai = trangThai;
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
     }
 
     public Product(String ID_pr, String image, String name, String price, String typeProduct, String number, String description) {
