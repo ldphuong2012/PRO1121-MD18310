@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
     tools:context=".Fragment_Nav.ThongKeDoanhThuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Thống kê doanh thu" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thống kê doanh thu"
+        android:layout_gravity="center"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:background="@drawable/layout_item"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="15dp"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_item"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+        <TextView
+            android:text="Chọn ngày bắt đầu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <EditText
+            android:id="@+id/edtStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_item"
+            android:hint="Nhấp vào để chọn ngày"/>
+        <TextView
+            android:text="Chọn ngày kết thúc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <EditText
+            android:id="@+id/edtEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_item"
+            android:layout_marginTop="10dp"
+            android:hint="Nhấp vào để chọn ngày"/>
+
+        <Button
+            android:id="@+id/btnthongke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thống kê"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/green"
+            android:layout_gravity="center"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_marginRight="10dp"
+                android:text="Tổng:"/>
+            <TextView
+                android:id="@+id/txtKetqua"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="30dp"
+                android:textColor="#E63333"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

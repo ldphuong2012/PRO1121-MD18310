@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recCardthemsphoadon1"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/recImagetdachon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+
+        <TextView
+            android:id="@+id/recNamedachon"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="Tên sản phẩm"
+            android:layout_marginTop="5dp"
+            android:textSize="23dp"
+            app:layout_constraintLeft_toRightOf="@id/recImagetdachon"
+            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/linear_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/recNamedachon"
+            app:layout_constraintLeft_toRightOf="@id/recImagetdachon">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recPricedachon"
+                android:text="Giá tiền"
+                android:textColor="#FF0000"
+                android:layout_marginLeft="40dp"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="đ"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FF0000"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/soluong_dachon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="@id/recNamedachon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="40dp">
+            <ImageView
+                android:id="@+id/giohang_tru"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/baseline_horizontal_rule_24"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recsoluongdachon"
+                android:text="1"
+                android:textColor="#FF0000"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+
+                />
+            <ImageView
+                android:id="@+id/giohang_cong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@id/linear_price"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="10dp">
+
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
