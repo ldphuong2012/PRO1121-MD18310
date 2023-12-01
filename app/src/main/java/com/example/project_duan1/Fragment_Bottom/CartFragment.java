@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -38,6 +41,8 @@ public class CartFragment extends Fragment {
     ScrollView scrollView;
     CartAdapter adapter;
     List<GioHang> gioHangList;
+    CheckBox cb_cod,cb_atm;
+    Button btn_order;
 
 
 
@@ -78,6 +83,36 @@ public class CartFragment extends Fragment {
         gioHangList= new ArrayList<>();
         adapter= new CartAdapter(gioHangList,getContext());
         rec_Cart.setAdapter(adapter);
+        cb_atm= view.findViewById(R.id.cb_atm);
+        cb_cod= view.findViewById(R.id.cb_cod);
+        btn_order= view.findViewById(R.id.btn_order);
+        btn_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        cb_cod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    cb_atm.setChecked(false);
+                }else {
+
+                }
+            }
+        });
+        cb_atm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    cb_cod.setChecked(false);
+                }else {
+
+                }
+            }
+        });
         DatabaseReference favouriteRef = FirebaseDatabase.getInstance().getReference("Cart");
 
         favouriteRef.addValueEventListener(new ValueEventListener() {
@@ -100,18 +135,51 @@ public class CartFragment extends Fragment {
 
 
         });
-    }
-
-
+        CalculatorTotal();
 
     }
 
+    private void CalculatorTotal() {
+        double delivery=30000;
+
+        DatabaseReference gioHangRef = FirebaseDatabase.getInstance().getReference("Cart");
+
+        gioHangRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                gioHangList.clear(); // Xóa danh sách cũ trước khi thêm dữ liệu mới
+
+                double subtotal = 0;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    GioHang gioHangItem = snapshot.getValue(GioHang.class);
+                    gioHangList.add(gioHangItem);
+
+                    int soLuong = gioHangItem.getNumber_pr();
+                    double giaTien = gioHangItem.getPrice_pr();
+                    double itemTotal = soLuong * giaTien;
+                    subtotal += itemTotal;
 
 
+                }
 
+                adapter.notifyDataSetChanged(); // Cập nhật RecyclerView khi có thay đổi
+                double totaltax = subtotal * 0.1;
+                // Cập nhật giá trị subtotal và tổng
+                tv_subtotal.setText(String.valueOf(subtotal) + "đ");
+                tv_delivery.setText(String.valueOf(delivery) + "đ");
+                tv_tax.setText(String.valueOf(totaltax) + "đ");
 
+                double total = subtotal + delivery + totaltax;
+                tv_total.setText(String.valueOf(total) + "đ");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
+            }
+        });
+    }
+}
 
 

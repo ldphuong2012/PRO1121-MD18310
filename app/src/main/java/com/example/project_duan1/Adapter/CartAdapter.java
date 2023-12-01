@@ -55,7 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder
             public void onClick(View v) {
 
                 DatabaseReference gioHangRef = FirebaseDatabase.getInstance().getReference("Cart");
-                String gioHangId = gioHangRef.push().getKey(); // Tạo khóa duy nhất cho mục trong Firebase
+                String gioHangId = objGiohang.getId_pr(); // Tạo khóa duy nhất cho mục trong Firebase
                 Log.d("zzzzzz", "onClick: "+gioHangId);
 // Tăng số lượng trong Firebase
                 gioHangRef.child(gioHangId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -97,54 +97,83 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder
         holder.tv_tru_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentQuantity = objGiohang.getNumber_pr();
-                if (currentQuantity >1 ) {
-                    objGiohang.setNumber_pr(currentQuantity - 1);
-                    holder.rec_Number_cart.setText(String.valueOf(objGiohang.getNumber_pr()));
-                } else {
-                    // Xóa khỏi giỏ hàng nếu số lượng đã là 0
+                DatabaseReference gioHangRef = FirebaseDatabase.getInstance().getReference("Cart");
+                String gioHangId = objGiohang.getId_pr(); // Tạo khóa duy nhất cho mục trong Firebase
+                Log.d("zzzzzz", "onClick: " + gioHangId);
 
-                    AlertDialog.Builder builder= new AlertDialog.Builder(context);
-                    builder.setMessage("Bạn có chắc chắn muốn xóa khỏi giỏ hàng ? ");
-                    builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            gioHangList.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, gioHangList.size());
+                gioHangRef.child(gioHangId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            int currentQuantity = dataSnapshot.child("number_pr").getValue(Integer.class);
 
-                            // Xóa từ Firebase
-                            DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("Cart");
-                            cartRef.child(objGiohang.getId_pr()).removeValue()
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // Xóa thành công
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            // Xóa thất bại, xử lý lỗi
-                                        }
-                                    });
+                            if (currentQuantity > 1) {
+                                int newQuantity = currentQuantity - 1;
 
-                            dialog.dismiss();
+                                gioHangRef.child(gioHangId).child("number_pr").setValue(newQuantity)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // Số lượng đã được giảm thành công trong Firebase
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Xử lý lỗi nếu không thể cập nhật số lượng
+                                            }
+                                        });
 
+                                // Cập nhật số lượng mới trên giao diện
+                                objGiohang.setNumber_pr(newQuantity);
+                                holder.rec_Number_cart.setText(String.valueOf(objGiohang.getNumber_pr()));
+                            } else {
+                                // Xóa khỏi giỏ hàng nếu số lượng đã là 0
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder.setMessage("Bạn có chắc chắn muốn xóa khỏi giỏ hàng ? ");
+                                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        gioHangList.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position, gioHangList.size());
+
+                                        // Xóa từ Firebase
+                                        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("Cart");
+                                        cartRef.child(objGiohang.getId_pr()).removeValue()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        // Xóa thành công
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        // Xóa thất bại, xử lý lỗi
+                                                    }
+                                                });
+
+                                        dialog.dismiss();
+                                    }
+                                });
+                                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
                         }
-                    });
-                    builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog= builder.create();
-                    dialog.show();
+                    }
 
-
-                }
-
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Xử lý lỗi nếu có lỗi khi đọc dữ liệu từ Firebase
+                    }
+                });
             }
         });
         Glide.with(holder.itemView.getContext()).load(objGiohang.getImg_pr()).into(holder.img_cart);

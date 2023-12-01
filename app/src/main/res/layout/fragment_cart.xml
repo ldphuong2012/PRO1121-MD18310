@@ -144,10 +144,22 @@
     <LinearLayout
         android:layout_width="match_parent"
 
-        android:layout_height="120dp"
+        android:layout_height="190dp"
         android:background="#D5D5D5"
         android:layout_margin="8dp"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fullname"
+            style="@style/textStyle"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+        <EditText
+            android:id="@+id/ed_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -156,6 +168,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"/>
         <EditText
+            android:id="@+id/ed_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 />
@@ -171,12 +184,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"/>
             <CheckBox
+                android:id="@+id/cb_cod"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="10dp"
                 android:text="COD"/>
             <CheckBox
+                android:id="@+id/cb_atm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -186,6 +201,7 @@
 
     </LinearLayout>
     <Button
+        android:id="@+id/btn_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Order Now"
