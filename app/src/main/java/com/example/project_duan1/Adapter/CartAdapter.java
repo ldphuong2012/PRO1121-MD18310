@@ -25,17 +25,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder> {
     private List<GioHang> gioHangList;
     Context context;
+    private List<GioHang> items;
+
 
     public CartAdapter(List<GioHang> gioHangList, Context context) {
         this.gioHangList = gioHangList;
         this.context = context;
+        items=new ArrayList<>();
     }
-
+    public List<GioHang> getItems() {
+        return items;
+    }
     @NonNull
     @Override
     public CartViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
