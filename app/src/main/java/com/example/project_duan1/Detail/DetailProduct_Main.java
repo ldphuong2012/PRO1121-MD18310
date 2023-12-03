@@ -26,19 +26,26 @@ public class DetailProduct_Main extends AppCompatActivity {
 
     String key = "";
     String imageUrl = "";
-    Button btn_add_cart;
+
+
+    DatabaseReference cartRef; // Tham chiếu đến nút "Cart" trong Firebase Realtime Database
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product_main);
+
+        cartRef = FirebaseDatabase.getInstance().getReference("Cart"); // Khởi tạo tham chiếu đến nút "Cart" trong Firebase Realtime Database
+
         detailName = findViewById(R.id.detailName_main);
         detailTypePr = findViewById(R.id.detailTypePr_main);
         detailPrice = findViewById(R.id.detailPrice_main);
         detailDes = findViewById(R.id.detailDes_main);
         detailNumber = findViewById(R.id.detailNumber_main);
         detailImg = findViewById(R.id.detailImg_main);
-        btn_add_cart = findViewById(R.id.btn_add_cart);
-        manggiohang= new ArrayList<>();
+
+        manggiohang = new ArrayList<>();
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             detailName.setText(bundle.getString("Name"));
@@ -49,48 +56,12 @@ public class DetailProduct_Main extends AppCompatActivity {
             key = bundle.getString("Key");
             imageUrl = bundle.getString("Image");
             Glide.with(this).load(bundle.getString("Image")).into(detailImg);
-
         }
-        initControl();
-    }
-    private void initControl(){
 
 
-        btn_add_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addtoCart();
-            }
-        });
-    }
-    private void addtoCart() {
-        GioHang objGioHang = new GioHang();
-        objGioHang.setImg_pr(imageUrl);
-        objGioHang.setName_pr(detailName.getText().toString());
-        objGioHang.setPrice_pr(Double.parseDouble(detailPrice.getText().toString()));
-        objGioHang.setNumber_pr(1);
-
-        // Sử dụng CartManager để thêm mục vào giỏ hàng cục bộ
-        CartManager.getInstance().addToCart(objGioHang);
-
-        // Thêm mục vào giỏ hàng Firebase
-        addToFirebaseCart(objGioHang);
-
-        Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
     }
 
-    public void addToFirebaseCart(GioHang gioHangItem) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Cart"); // Thay thế "user_id_here" bằng ID người dùng thực tế hoặc một định danh duy nhất
 
-        String cartItemId = databaseReference.push().getKey(); // Tạo một khóa duy nhất cho mục giỏ hàng
 
-        GioHang cartItem = new GioHang();
-        cartItem.setId_pr(cartItemId);
-        cartItem.setName_pr(gioHangItem.getName_pr());
-        cartItem.setPrice_pr(gioHangItem.getPrice_pr());
-        cartItem.setImg_pr(gioHangItem.getImg_pr());
 
-        // Thêm mục giỏ hàng vào Firebase Realtime Database
-        databaseReference.child(cartItemId).setValue(cartItem);
-    }
 }

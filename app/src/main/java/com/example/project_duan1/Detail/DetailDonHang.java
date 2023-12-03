@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
@@ -45,11 +46,6 @@ List<Bill> billList;
         ed_address_DH=findViewById(R.id.ed_address_DH);
         cb_cod_DH=findViewById(R.id.cb_cod_DH);
         cb_atm_DH=findViewById(R.id.cb_atm_DH);
-
-
-
-
-
 
 
 

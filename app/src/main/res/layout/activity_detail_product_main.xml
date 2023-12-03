@@ -111,15 +111,7 @@
         android:textSize="24dp"
         android:layout_marginTop="12dp"
         />
-<Button
-    android:id="@+id/btn_add_cart"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="Thêm vào giỏ hàng"
-    android:textSize="25dp"
-    android:backgroundTint="@color/green"
-    android:layout_marginTop="20dp"/>
+
 
 
 

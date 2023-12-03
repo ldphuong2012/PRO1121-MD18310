@@ -212,10 +212,17 @@ public class CartFragment extends Fragment {
                     GioHang gioHangItem = snapshot.getValue(GioHang.class);
                     gioHangList.add(gioHangItem);
 
-                    int soLuong = gioHangItem.getNumber_pr();
-                    double giaTien = gioHangItem.getPrice_pr();
-                    double itemTotal = soLuong * giaTien;
-                    subtotal += itemTotal;
+                    Integer soLuong = gioHangItem.getNumber_pr();
+                    if (soLuong != null) {
+                        int soLuongInt = soLuong.intValue();
+                        double giaTien = gioHangItem.getPrice_pr();
+                        double itemTotal = soLuongInt * giaTien;
+                        subtotal += itemTotal;
+                    } else {
+                        // Xử lý khi giá trị số lượng là null
+                        Toast.makeText(getContext(), "Số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
 
                 adapter.notifyDataSetChanged(); // Cập nhật RecyclerView khi có thay đổi
