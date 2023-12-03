@@ -2,12 +2,11 @@ package com.example.project_duan1;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.project_duan1.Fragment_Bottom.CartFragment;
 
 import com.example.project_duan1.Fragment_Bottom.AccountFragment;
-import com.example.project_duan1.Fragment_Bottom.ExploreFragment;
+import com.example.project_duan1.Fragment_Bottom.HistoryFragment;
 import com.example.project_duan1.Fragment_Bottom.FavoriteFragment;
 import com.example.project_duan1.Fragment_Bottom.HomeFragment;
 import com.example.project_duan1.Fragment_Nav.QLHoaDonFragment;
@@ -18,7 +17,6 @@ import com.example.project_duan1.Fragment_Nav.ThongKeDoanhThuFragment;
 import com.example.project_duan1.Fragment_Nav.ThongKeMatHangFragment;
 import com.example.project_duan1.Fragment_Nav.XNDonHangFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -32,8 +30,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.example.project_duan1.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -68,7 +64,7 @@ BottomNavigationView bottomNavigationView;
                     replaceFragment(new HomeFragment());
                     return true;
                 } else if (item.getItemId() == R.id.search) {
-                    replaceFragment(new ExploreFragment());
+                    replaceFragment(new HistoryFragment());
                     return true;
                 }
                 else if (item.getItemId() == R.id.cart) {

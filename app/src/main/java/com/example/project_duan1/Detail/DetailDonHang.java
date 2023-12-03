@@ -46,6 +46,25 @@ List<Bill> billList;
         ed_address_DH=findViewById(R.id.ed_address_DH);
         cb_cod_DH=findViewById(R.id.cb_cod_DH);
         cb_atm_DH=findViewById(R.id.cb_atm_DH);
+        Intent intent = getIntent();
+        List<GioHang> giohangList = (List<GioHang>) intent.getSerializableExtra("giohangList");
+
+        String fullName = intent.getStringExtra("fullName");
+        String address = intent.getStringExtra("address");
+        double subtotal = intent.getDoubleExtra("subtotal", 0.0);
+        double delivery = intent.getDoubleExtra("delivery", 0.0);
+        double totalTax = intent.getDoubleExtra("totalTax", 0.0);
+        double total = intent.getDoubleExtra("total", 0.0);
+        boolean isCOD = intent.getBooleanExtra("isCOD", false);
+        boolean isATM = intent.getBooleanExtra("isATM", false);
+        ed_fullname_DH.setText(fullName);
+        ed_address_DH.setText(address);
+        tv_subtotal_d_DH.setText(String.valueOf(subtotal));
+        tv_delivery_d_DH.setText(String.valueOf(delivery));
+        tv_totaltax_d_DH.setText(String.valueOf(totalTax));
+        tv_total_d_DH.setText(String.valueOf(total));
+        cb_cod_DH.setChecked(isCOD);
+        cb_atm_DH.setChecked(isATM);
 
 
 

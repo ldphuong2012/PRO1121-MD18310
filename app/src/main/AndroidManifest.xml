@@ -19,6 +19,9 @@
             android:name=".chon_sanpham_hoadon"
             android:exported="false" />
         <activity
+            android:name=".Detail.DetailHoaDon"
+            android:exported="false" />
+        <activity
             android:name=".add_hoadon"
             android:exported="false" />
         <activity
