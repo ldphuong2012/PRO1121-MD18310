@@ -86,7 +86,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.DonHangV
                         // Lấy reference đến nút đơn hàng trong Realtime Database
                         // Lấy reference đến nút đơn hàng trong Realtime Database
                         // Lấy reference đến nút đơn hàng trong Realtime Database
-                        DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(objBill.getId_bill());
+                        DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("Orders").child(objBill.getId_bill());
 
 // Cập nhật trạng thái đã xác nhận trong Realtime Database
                         locationRef.child("confirmed").setValue(true)

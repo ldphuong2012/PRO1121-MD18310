@@ -166,7 +166,7 @@ public class CartFragment extends Fragment {
 
                 Bill order = new Bill(id_bill, fullname, address, subtotal, delivery, totalTax, total, gioHangList, isCOD, isATM, formattedDate,isConfirmed);
                 DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("Orders");
-                DatabaseReference newOrderRef = ordersRef.push();
+                DatabaseReference newOrderRef = ordersRef.child(id_bill);
                 newOrderRef.setValue(order)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
