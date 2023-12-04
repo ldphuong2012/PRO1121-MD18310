@@ -27,7 +27,8 @@
         android:hint="Nhập ký tự theo tên để tìm"
         app:layout_constraintTop_toBottomOf="@id/tv_hoadon"
         android:drawableLeft="@drawable/ic_search"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp"
+        android:focusable="false"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerthemhoadon"

@@ -47,7 +47,7 @@ List<Bill> billList;
         cb_cod_DH=findViewById(R.id.cb_cod_DH);
         cb_atm_DH=findViewById(R.id.cb_atm_DH);
         Intent intent = getIntent();
-        List<GioHang> giohangList = (List<GioHang>) intent.getSerializableExtra("giohangList");
+
 
         String fullName = intent.getStringExtra("fullName");
         String address = intent.getStringExtra("address");

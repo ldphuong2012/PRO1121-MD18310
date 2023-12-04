@@ -65,7 +65,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.DonHangV
                 intent.putExtra("total", objBill.getTotal());
                 intent.putExtra("isCOD", objBill.isCOD());
                 intent.putExtra("isATM", objBill.isATM());
-                intent.putExtra("giohangList", (Serializable) objBill.getGioHangList());
+
 
 
 // Khởi chạy Activity mới
