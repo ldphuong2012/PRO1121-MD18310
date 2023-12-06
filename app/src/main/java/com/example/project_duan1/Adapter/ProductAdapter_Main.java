@@ -133,7 +133,7 @@ public class ProductAdapter_Main extends RecyclerView.Adapter<ProductAdapter_Mai
         holder.img_addCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-addtoCart(product);
+                 addtoCart(product);
                 Toast.makeText(context, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });

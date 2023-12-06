@@ -48,29 +48,7 @@ public class chon_sanpham_hoadon extends AppCompatActivity {
 
         productList = new ArrayList<>();
 
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ThemSanPham");
-        sanphamAdapter = new chon_sanphamAdapter(this, productList, new chon_sanphamAdapter.ProductClickListener() {
-            @Override
-            public void onProductClick(Product selectedProduct) {
-
-                // Tạo một đối tượng Firebase Database Reference đến node bạn muốn lưu trữ dữ liệu
-                DatabaseReference productsRef = myRef.child("products");
-
-                // Tạo một đối tượng Firebase Database Reference cho sản phẩm được chọn
-                DatabaseReference selectedProductRef = productsRef.push();
-
-                // Đặt dữ liệu cho sản phẩm được chọn
-                selectedProductRef.child("tensp").setValue(selectedProduct.getName());
-                selectedProductRef.child("giasp").setValue(selectedProduct.getPrice());
-                selectedProductRef.child("hinhsp").setValue(selectedProduct.getImage());
-                //Thêm các thuộc tính khác nếu cần
-                selectedProductRef.child("soluong").setValue(1);
-                // Hiển thị thông báo hoặc thực hiện các hành động khác nếu cần
-                Toast.makeText(chon_sanpham_hoadon.this, "Sản phẩm được thêm vào Firebase", Toast.LENGTH_SHORT).show();
-            }
-        });
+        sanphamAdapter = new chon_sanphamAdapter(this,productList);
 
         //tạo ra mảng mới để chứa dữ liệu chọn
         recyclerView.setAdapter(sanphamAdapter);
@@ -92,33 +70,10 @@ public class chon_sanpham_hoadon extends AppCompatActivity {
             }
         });
 
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                searchList(newText);
-//                return true;
-//            }
-//        });
 
 
     }
 
-
-
-//    public void searchList(String text) {
-//        ArrayList<Product> searchList = new ArrayList<>();
-//        for (Product dataclass : productList) {
-//            if (dataclass.getName().toLowerCase().contains(text.toLowerCase())) {
-//                searchList.add(dataclass);
-//            }
-//        }
-//        sanphamAdapter.searchProduct(searchList);
-//    }
 
     private void getListProduct (){
         FirebaseDatabase database = FirebaseDatabase.getInstance();

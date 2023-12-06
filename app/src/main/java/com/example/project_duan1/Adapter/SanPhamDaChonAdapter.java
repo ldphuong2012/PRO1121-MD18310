@@ -1,6 +1,9 @@
 package com.example.project_duan1.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +20,13 @@ import com.example.project_duan1.Manager.ImateclickListtenner;
 import com.example.project_duan1.Model.EventBus.TinhTongEvent;
 import com.example.project_duan1.Model.GioHangHoaDon;
 import com.example.project_duan1.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,51 +62,124 @@ public class SanPhamDaChonAdapter extends RecyclerView.Adapter<SanPhamDaChonAdap
         holder.recsoluongdachon.setText(String.valueOf(gioHangList.get(position).getSoluong()));
         holder.recPrice_dachon.setText(gioHangList.get(position).getGiasp());
 
-        holder.setListtenner(new ImateclickListtenner() {
+
+        holder.giohang_cong.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void OnmateClick(View view, int pos, int giatri) {
-                if (giatri == 1){
-                    if (gioHangList.get(pos).getSoluong() > 1){
-                        int soluongmoi = gioHangList.get(pos).getSoluong() - 1;
-                        gioHangList.get(pos).setSoluong(soluongmoi);
-                        notifyDataSetChanged();
-                        EventBus.getDefault().postSticky(new TinhTongEvent());
-                        String productId = gioHangList.get(pos).getTensp();
-                        String newPrice = gioHangList.get(pos).getGiasp();
-                        if (productId != null) {
-                            updateFirebaseQuantity(productId, soluongmoi,newPrice);
-                        } else {
-                            Toast.makeText(context, "Vì ID null lên không cập nhập được dữ liệu", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ThemSanPham");
+                String gioHangID = gioHangHoaDon.getIdsp();//Tạo khóa duy nhất cho mục trong Firebase
+                Log.d("zzzzzz", "onClick: "+gioHangID);
+                // Tăng số lượng trong Firebase
+                databaseReference.child(gioHangID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            // Lấy số lượng hiện tại từ Firebase
+                            int currentQuantity = snapshot.child("soluong").getValue(Integer.class);
+                            // Tăng số lượng
+                            int newQuantity = currentQuantity + 1;
+                            // Cập nhật số lượng mới vào Firebase
+                            databaseReference.child(gioHangID).child("soluong").setValue(newQuantity)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            // Số lượng đã được tăng thành công trong Firebase
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Xử lý lỗi nếu không thể cập nhật số lượng
+                                        }
+                                    });
                         }
                     }
-                }
-                else if (giatri == 2){
-                    int soluongmoi = gioHangList.get(pos).getSoluong() + 1;
-                    gioHangList.get(pos).setSoluong(soluongmoi);
-                    notifyDataSetChanged();
-                    EventBus.getDefault().postSticky(new TinhTongEvent());
-                    String productId = gioHangList.get(pos).getTensp();
-                    String newPrice = gioHangList.get(pos).getGiasp();
-                    if (productId != null) {
-                        updateFirebaseQuantity(productId, soluongmoi,newPrice);
-                    } else {
-                        Toast.makeText(context, "Vì ID null lên không cập nhập được dữ liệu", Toast.LENGTH_SHORT).show();
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                        // Xử lý lỗi nếu có lỗi khi đọc dữ liệu từ Firebase
                     }
-
-                }
-
-
+                });
             }
         });
+        holder.giohang_tru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ThemSanPham");
+                String gioHangID = gioHangHoaDon.getIdsp();//Tạo khóa duy nhất cho mục trong Firebase
+                Log.d("zzzzzz", "onClick: "+gioHangID);
+                databaseReference.child(gioHangID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            int currentQuantity = snapshot.child("soluong").getValue(Integer.class);
+                            if (currentQuantity > 1) {
+                                int newQuantity = currentQuantity - 1;
+                                databaseReference.child(gioHangID).child("soluong").setValue(newQuantity)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                // Số lượng đã được giảm thành công trong Firebase
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Xử lý lỗi nếu không thể cập nhật số lượng
+                                            }
+                                        });
+                                // Cập nhật số lượng mới trên giao diện
+                                holder.recsoluongdachon.setText(String.valueOf(gioHangHoaDon.getSoluong()));
+                            }
+                            else {
+                                // Xóa khỏi giỏ hàng nếu số lượng đã là 0
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder.setMessage("Bạn có chắc muốn xóa sản phẩm không ?");
+                                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        gioHangList.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position,gioHangList.size());
 
-    }
-    private void updateFirebaseQuantity(String productId, int newQuantity,String newPrice) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ThemSanPham/products/" + productId);
+                                        //Xóa từ Firebase
+                                        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("ThemSanPham");
+                                        cartRef.child(gioHangHoaDon.getIdsp()).removeValue()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        //Xóa thành công
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        //Xóa thất bại
+                                                    }
+                                                });
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+                                builder.setNegativeButton("Khônng", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
+                    }
 
-        // Cập nhật trực tiếp giá trị số lượng trong sản phẩm
-        databaseReference.child("soluong").setValue(newQuantity);
-        databaseReference.child("giasp").setValue(newPrice);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                        //Xử lý nỗi dữ liệu đọc từ Firebase
+                    }
+                });
+            }
+        });
     }
+
 
 
     @Override
@@ -110,12 +191,11 @@ public class SanPhamDaChonAdapter extends RecyclerView.Adapter<SanPhamDaChonAdap
         return 0;
     }
 
-    public class SanPhamDaChonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class SanPhamDaChonViewHolder extends RecyclerView.ViewHolder {
 
         ImageView recImage_dachon;
         TextView recName_dachon,recsoluongdachon,recPrice_dachon;
         ImageView giohang_tru,giohang_cong;
-        ImateclickListtenner listtenner;
         public SanPhamDaChonViewHolder(@NonNull View itemView) {
             super(itemView);
             recImage_dachon = itemView.findViewById(R.id.recImagetdachon);
@@ -125,24 +205,6 @@ public class SanPhamDaChonAdapter extends RecyclerView.Adapter<SanPhamDaChonAdap
             giohang_tru = itemView.findViewById(R.id.giohang_tru);
             giohang_cong = itemView.findViewById(R.id.giohang_cong);
 
-            giohang_tru.setOnClickListener(this);
-            giohang_cong.setOnClickListener(this);
-        }
-
-        public void setListtenner(ImateclickListtenner listtenner) {
-            this.listtenner = listtenner;
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (view == giohang_tru){
-                //1 là trừ
-                listtenner.OnmateClick(view,getAdapterPosition(),1);
-            }
-            else if (view == giohang_cong){
-                // 2 là cộng
-                listtenner.OnmateClick(view,getAdapterPosition(), 2);
-            }
         }
     }
 }

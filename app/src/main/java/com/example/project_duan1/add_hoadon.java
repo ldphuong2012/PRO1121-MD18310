@@ -124,7 +124,7 @@ public class add_hoadon extends AppCompatActivity {
     private void clearFirebaseData() {
         // Truy vấn để xóa tất cả các mục trong "ThemSanPham"
         DatabaseReference themSanPhamRef = FirebaseDatabase.getInstance().getReference("ThemSanPham");
-        themSanPhamRef.child("products").removeValue(); // Xóa toàn bộ nút "products"
+        themSanPhamRef.removeValue(); // Xóa toàn bộ nút "products"
     }
 
     private void saveDataToFirebase(HoaDon hoaDon) {
@@ -182,7 +182,7 @@ public class add_hoadon extends AppCompatActivity {
 
     private void getListgioHang() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ThemSanPham").child("products");
+        DatabaseReference myRef = database.getReference("ThemSanPham");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
