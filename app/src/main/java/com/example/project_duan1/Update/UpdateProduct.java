@@ -185,7 +185,7 @@ public class UpdateProduct extends AppCompatActivity {
         name = updateName.getText().toString().trim();
         price = updatePrice.getText().toString().trim();
         typePr = updateTypePr.getText().toString().trim();
-        number = updateNumber.getText().toString().trim();
+        number = (updateNumber.getText().toString().trim());
         des = updateDes.getText().toString().trim();
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this, "Vui lòng nhập tên sản phẩm", Toast.LENGTH_SHORT).show();

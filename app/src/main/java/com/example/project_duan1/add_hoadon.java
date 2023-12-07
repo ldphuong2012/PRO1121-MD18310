@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_duan1.Adapter.SanPhamDaChonAdapter;
+import com.example.project_duan1.DTO.GioHang;
 import com.example.project_duan1.DTO.Product;
 import com.example.project_duan1.Fragment_Nav.QLHoaDonFragment;
 import com.example.project_duan1.Model.EventBus.TinhTongEvent;
@@ -54,6 +55,7 @@ public class add_hoadon extends AppCompatActivity {
 
     SanPhamDaChonAdapter sanPhamDaChonAdapter;
     private ArrayList<GioHangHoaDon> gioHangHoaDonList;
+    List<Product> productsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,11 @@ public class add_hoadon extends AppCompatActivity {
             public void onClick(View view) {
                 String selectedKhachHang = spnkhachhang.getSelectedItem().toString();
                 String selectedNhanVien = spnnhanVien.getSelectedItem().toString();
+                if (gioHangHoaDonList.isEmpty()) {
+                    // Giỏ hàng trống, yêu cầu người dùng thêm sản phẩm vào giỏ hàng trước khi đặt hàng
+                    Toast.makeText(add_hoadon.this, "Giỏ hàng trống. Vui lòng thêm sản phẩm vào giỏ hàng.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // Tạo một đối tượng HoaDon mới
                 HoaDon hoaDon = new HoaDon();
@@ -96,6 +103,7 @@ public class add_hoadon extends AppCompatActivity {
                 hoaDon.setTennhanvien(selectedNhanVien);
                 hoaDon.setGioHangList(gioHangHoaDonList);
                 hoaDon.setGiatien(tinhtongtien());
+
 
                 // Lưu dữ liệu vào Firebase
                 saveDataToFirebase(hoaDon);
@@ -110,6 +118,8 @@ public class add_hoadon extends AppCompatActivity {
 
                 //Xóa dữ liệu firebase
                 clearFirebaseData();
+
+
             }
         });
 

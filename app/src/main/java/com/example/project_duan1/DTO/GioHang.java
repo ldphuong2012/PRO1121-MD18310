@@ -1,6 +1,8 @@
 package com.example.project_duan1.DTO;
 
-public class GioHang {
+import java.io.Serializable;
+
+public class GioHang implements Serializable {
     String id_pr;
     String img_pr;
     String name_pr;

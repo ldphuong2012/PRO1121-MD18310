@@ -68,9 +68,9 @@ public class chon_sanphamAdapter extends RecyclerView.Adapter<chon_sanphamAdapte
             public void onClick(View v) {
                 addtoHoaDon(product);
                 Toast.makeText(context, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context,add_hoadon.class));
             }
         });
-
         //Intent dữ liệu sang add_hoadon khi click vào san pham
 //        holder.reclayoutthemspHoadon.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -162,7 +162,7 @@ public class chon_sanphamAdapter extends RecyclerView.Adapter<chon_sanphamAdapte
             existingItem.setSoluong(currentQuantity + 1);
             // Cập nhật giỏ hàng cục bộ
             HoaDonManager.getInstance().updateSanPhamHD(existingItem);
-            // Cập nhật giỏ hàng trên Firebase
+            // Cập nhật giỏ hàng trên Firebase12
             updateFirebaseCartItem(existingItem);
         }
         else {

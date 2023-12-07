@@ -2,6 +2,7 @@ package com.example.project_duan1.Detail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.project_duan1.Adapter.DetailDonHangAdapter;
 import com.example.project_duan1.Adapter.DonHangAdapter;
 import com.example.project_duan1.DTO.Bill;
 import com.example.project_duan1.DTO.GioHang;
@@ -47,8 +49,14 @@ List<Bill> billList;
         cb_cod_DH=findViewById(R.id.cb_cod_DH);
         cb_atm_DH=findViewById(R.id.cb_atm_DH);
         Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        List<GioHang> gioHangList = (List<GioHang>) bundle.getSerializable("gioHangList");
+        RecyclerView recyclerView = findViewById(R.id.recycler_DH);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
+        // Khởi tạo DonHangAdapter và set Adapter cho RecyclerView
+        DetailDonHangAdapter adapter = new DetailDonHangAdapter(gioHangList);
+        recyclerView.setAdapter(adapter);
         String fullName = intent.getStringExtra("fullName");
         String address = intent.getStringExtra("address");
         double subtotal = intent.getDoubleExtra("subtotal", 0.0);

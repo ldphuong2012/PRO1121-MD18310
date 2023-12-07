@@ -154,6 +154,7 @@ public class CartFragment extends Fragment {
 
                 boolean isCOD = cb_cod.isChecked(); // Lấy trạng thái của checkbox COD
                 boolean isATM= cb_atm.isChecked();
+
                 Calendar calendar = Calendar.getInstance();
                 Date createdAt = calendar.getTime();
 
@@ -161,7 +162,29 @@ public class CartFragment extends Fragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String formattedDate = dateFormat.format(createdAt);
                 boolean isConfirmed = false;
+                if (fullname.isEmpty()) {
+                    // Tên không được để trống
+                    Toast.makeText(getContext(), "Vui lòng nhập tên.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                if (address.isEmpty()) {
+                    // Địa chỉ không được để trống
+                    Toast.makeText(getContext(), "Vui lòng nhập địa chỉ.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Kiểm tra phương thức thanh toán
+                if (!isCOD && !isATM) {
+                    // Phải chọn ít nhất một phương thức thanh toán
+                    Toast.makeText(getContext(), "Vui lòng chọn phương thức thanh toán.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (gioHangList.isEmpty()) {
+                    // Giỏ hàng trống, yêu cầu người dùng thêm sản phẩm vào giỏ hàng trước khi đặt hàng
+                    Toast.makeText(getContext(), "Giỏ hàng trống. Vui lòng thêm sản phẩm vào giỏ hàng.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String id_bill = UUID.randomUUID().toString(); // Generate a unique ID for the bill
 
                 Bill order = new Bill(id_bill, fullname, address, subtotal, delivery, totalTax, total, gioHangList, isCOD, isATM, formattedDate,isConfirmed);

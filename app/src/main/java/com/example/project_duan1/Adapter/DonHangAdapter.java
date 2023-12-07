@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,11 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.DonHangV
             public void onClick(View v) {
                 // Tạo một Intent
                 Intent intent = new Intent(context, DetailDonHang.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("gioHangList", (Serializable) objBill.getGioHangList());
+
+                // Đưa Bundle vào Intent
+                intent.putExtras(bundle);
 
 // Truyền các giá trị thông qua putExtra()
                 intent.putExtra("fullName", objBill.getFullname());

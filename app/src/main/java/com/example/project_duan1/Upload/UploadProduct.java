@@ -170,12 +170,17 @@ public class UploadProduct extends AppCompatActivity {
 
         }else if (TextUtils.isEmpty(name)){
             Toast.makeText(this, "Vui lòng nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+        }else if (name.length()>20){
+            Toast.makeText(this, "Tên sản phẩm không được quá 20 chữ", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(price)){
             Toast.makeText(this, "Vui lòng nhập giá sản phẩm", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(typePR)){
             Toast.makeText(this, "Vui lòng nhập loại sản phẩm", Toast.LENGTH_SHORT).show();
+        }
+        else if (typePR.length()>20){
+            Toast.makeText(this, "Loại sản phẩm không được quá 20 chữ", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(number)){
             Toast.makeText(this, "Vui lòng nhập số lượng sản phẩm", Toast.LENGTH_SHORT).show();
