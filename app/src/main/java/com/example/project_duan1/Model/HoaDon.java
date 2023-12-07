@@ -12,11 +12,12 @@ public class HoaDon implements Serializable {
     private double giatien;
     private String ngaytao;
     private String giotao;
+    private int xacnhanHD;
 
     public HoaDon() {
     }
 
-    public HoaDon(String mahoadon, String tenkhachhang, String tennhanvien, ArrayList<GioHangHoaDon> gioHangList , double giatien, String ngaytao, String giotao) {
+    public HoaDon(String mahoadon, String tenkhachhang, String tennhanvien, ArrayList<GioHangHoaDon> gioHangList , double giatien, String ngaytao, String giotao, int xacnhanHD) {
         this.mahoadon = mahoadon;
         this.tenkhachhang = tenkhachhang;
         this.tennhanvien = tennhanvien;
@@ -24,6 +25,15 @@ public class HoaDon implements Serializable {
         this.giatien = giatien;
         this.ngaytao = ngaytao;
         this.giotao = giotao;
+        this.xacnhanHD = xacnhanHD;
+    }
+
+    public int getXacnhanHD() {
+        return xacnhanHD;
+    }
+
+    public void setXacnhanHD(int xacnhanHD) {
+        this.xacnhanHD = xacnhanHD;
     }
 
     public String getMahoadon() {

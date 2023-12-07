@@ -1,11 +1,13 @@
 package com.example.project_duan1.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -19,6 +21,8 @@ import com.example.project_duan1.Detail.DetailHoaDon;
 import com.example.project_duan1.Model.HoaDon;
 import com.example.project_duan1.Model.NhanVien;
 import com.example.project_duan1.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +87,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final HoaDon hoaDon = mListHoadon.get(position);
         if (hoaDon == null){
             return;
@@ -91,6 +95,27 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
         holder.txtmahd.setText("Mã hóa đơn: "+mListHoadon.get(position).getMahoadon());
         holder.txtgiatien.setText("Tổng tiền: "+String.valueOf(mListHoadon.get(position).getGiatien()));
         holder.txtngaytao.setText("Ngày tạo: "+mListHoadon.get(position).getNgaytao());
+        String trangthai = "";
+        if (mListHoadon.get(position).getXacnhanHD() == 1){
+            trangthai = "Đã thanh toán";
+            holder.btnxacnhanHD.setVisibility(View.GONE);
+        }
+        else {
+            trangthai = "Chưa thanh toán";
+            holder.btnxacnhanHD.setVisibility(View.VISIBLE);
+        }
+        holder.txttrangthai.setText("Trạng thái: " +trangthai);
+
+        holder.btnxacnhanHD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("HoaDon");
+                mListHoadon.get(position).setXacnhanHD(1);
+                databaseReference.child(mListHoadon.get(position).getMahoadon()).child("xacnhanHD").setValue(1);
+                notifyDataSetChanged();
+            }
+        });
+
 
         holder.imgdelete_hoadon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,8 +148,9 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtmahd,txtgiatien,txtngaytao;
+        private TextView txtmahd,txtgiatien,txtngaytao,txttrangthai;
         private ImageView imgdelete_hoadon;
+        private Button btnxacnhanHD;
         private CardView layout_item1;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -132,9 +158,11 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHolder
             txtmahd = itemView.findViewById(R.id.txtmahoadon);
             txtgiatien = itemView.findViewById(R.id.txtgiatienhd);
             txtngaytao = itemView.findViewById(R.id.txtngaytao);
+            txttrangthai = itemView.findViewById(R.id.txttrangthaihd);
 
             imgdelete_hoadon = itemView.findViewById(R.id.ivdeletehoadon);
             layout_item1 = itemView.findViewById(R.id.layout_itemhoadon);
+            btnxacnhanHD = itemView.findViewById(R.id.btnxacnhanHD);
         }
     }
 }

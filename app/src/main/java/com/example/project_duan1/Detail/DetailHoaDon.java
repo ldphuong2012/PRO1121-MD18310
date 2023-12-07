@@ -27,8 +27,17 @@ public class DetailHoaDon extends AppCompatActivity {
         TextView txtgiachitiet = findViewById(R.id.txtgiachitiet);
         TextView txtngaytaochitiet = findViewById(R.id.txtngaytaochitiet);
         TextView txtgiotaochitiet = findViewById(R.id.txtgiotaochitiet);
+        TextView txttrangthai = findViewById(R.id.txttrangthai);
         Button btntrolai = findViewById(R.id.btntrolai);
 
+        String trangthai = "";
+        if (hoaDon.getXacnhanHD() == 1){
+            trangthai = "Đã thanh toán";
+        }
+        else {
+            trangthai = "Chưa thanh toán";
+        }
+        txttrangthai.setText("Trạng thái: "+trangthai);
         txtmachitiet.setText("Mã HD: "+hoaDon.getMahoadon());
         txttenkhachhangchitiet.setText("Tên khách hàng: "+hoaDon.getTenkhachhang());
         txtnhanvienchitiet.setText("Tên nhân viên: "+hoaDon.getTennhanvien());
