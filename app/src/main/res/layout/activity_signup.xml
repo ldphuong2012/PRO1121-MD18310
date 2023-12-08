@@ -108,17 +108,17 @@
             android:layout_marginTop="15dp"
             >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tip_password_signup"
+                android:id="@+id/tip_username_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_dangnhap"
-                android:hint="Password"
+                android:hint="Username"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_password"
+                android:drawableLeft="@drawable/ic_account"
                 android:drawablePadding="10dp"
-                android:password="true"
+
 
 
 
@@ -139,11 +139,11 @@
             android:layout_marginTop="15dp"
             >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tip_re_password_signup"
+                android:id="@+id/tip_password_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_dangnhap"
-                android:hint="Re - Password"
+                android:hint="Password"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="20dp"

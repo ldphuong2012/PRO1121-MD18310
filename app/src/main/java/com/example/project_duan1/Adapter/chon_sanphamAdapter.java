@@ -167,6 +167,7 @@ public class chon_sanphamAdapter extends RecyclerView.Adapter<chon_sanphamAdapte
         }
         else {
             GioHangHoaDon gioHangHoaDon = new GioHangHoaDon();
+            gioHangHoaDon.setIdsp(product.getID_pr());
             gioHangHoaDon.setHinhsp(product.getImage());
             gioHangHoaDon.setTensp(product.getName());
             gioHangHoaDon.setGiasp(product.getPrice());
@@ -182,8 +183,8 @@ public class chon_sanphamAdapter extends RecyclerView.Adapter<chon_sanphamAdapte
     private void addToFirebaseCart(GioHangHoaDon objGiohang) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ThemSanPham");
 
-        String cartItemId = databaseReference.push().getKey();
-        objGiohang.setIdsp(cartItemId);
+        String cartItemId = objGiohang.getIdsp(); // Get the cart item ID from the GioHangHoaDon object
+
 
         // Thêm thông tin sản phẩm vào Firebase Realtime Database
         databaseReference.child(cartItemId).setValue(objGiohang);

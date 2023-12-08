@@ -1,7 +1,9 @@
 package com.example.project_duan1;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.project_duan1.Fragment_Bottom.CartFragment;
 
@@ -55,7 +57,14 @@ BottomNavigationView bottomNavigationView;
         ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_nav,R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        nav_view.setNavigationItemSelectedListener(this);
+        SharedPreferences sharedPreferences= getSharedPreferences("Accounts",MODE_PRIVATE);
+        String loaitaikhoan= sharedPreferences.getString("loaitaikhoan","");
+        if (loaitaikhoan.equals("Admin")){
+            nav_view.setNavigationItemSelectedListener(this);
+        }else {
+            nav_view.setVisibility(View.GONE);
+        }
+
          bottomNavigationView.setBackground(null);
          bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -84,6 +93,7 @@ BottomNavigationView bottomNavigationView;
 
           fragmentManager=getSupportFragmentManager();
           replaceFragment(new HomeFragment());
+
 
     }
 

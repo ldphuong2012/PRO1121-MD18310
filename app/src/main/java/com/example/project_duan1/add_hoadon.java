@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,17 +25,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_duan1.Adapter.SanPhamDaChonAdapter;
+import com.example.project_duan1.DTO.GioHang;
 import com.example.project_duan1.DTO.Product;
 import com.example.project_duan1.Fragment_Nav.QLHoaDonFragment;
 import com.example.project_duan1.Model.EventBus.TinhTongEvent;
 import com.example.project_duan1.Model.GioHangHoaDon;
 import com.example.project_duan1.Model.HoaDon;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,6 +60,7 @@ public class add_hoadon extends AppCompatActivity {
 
     SanPhamDaChonAdapter sanPhamDaChonAdapter;
     private ArrayList<GioHangHoaDon> gioHangHoaDonList;
+    List<Product> productList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,7 @@ public class add_hoadon extends AppCompatActivity {
         EditText edttimkiemhd = findViewById(R.id.timkiemhoadon);
         recyclerthemhoadon = findViewById(R.id.recyclerthemhoadon);
 
+        productList= new ArrayList<>();
         loatdatahoadon();
 
         getListgioHang();
@@ -103,6 +111,14 @@ public class add_hoadon extends AppCompatActivity {
 
                 // Hiển thị thông báo hoặc chuyển sang màn hình khác (nếu cần)
                 Toast.makeText(add_hoadon.this, "Đã thanh toán và lưu dữ liệu!", Toast.LENGTH_SHORT).show();
+                DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("Products");
+                for (GioHangHoaDon gioHang : gioHangHoaDonList) {
+                    String productId = gioHang.getIdsp();
+                    int quantity = gioHang.getSoluong();
+                    // Tìm sản phẩm trong danh sách sản phẩm
+                    updateProductQuantityOnFirebase(productId,quantity);
+
+                }
 
                 // Xóa danh sách giỏ hàng sau khi thanh toán
                 gioHangHoaDonList.clear();
@@ -189,7 +205,9 @@ public class add_hoadon extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 gioHangHoaDonList.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    String productId = snapshot1.getKey();
                     GioHangHoaDon gioHangHoaDon = snapshot1.getValue(GioHangHoaDon.class);
+                    gioHangHoaDon.setIdsp(productId);
                     gioHangHoaDonList.add(gioHangHoaDon);
                 }
                 sanPhamDaChonAdapter.notifyDataSetChanged();
@@ -292,4 +310,46 @@ public class add_hoadon extends AppCompatActivity {
             tinhtongtien();
         }
     }
+    // Trừ đi số lượng sản phẩm trên Firebase Realtime Database
+    private void updateProductQuantityOnFirebase(String productId, int quantityToSubtract) {
+        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("Products");
+
+        // Tìm nút sản phẩm cần cập nhật
+        DatabaseReference productRef = productsRef.child(productId);
+
+        // Truy cập và cập nhật số lượng sản phẩm
+        productRef.child("number").runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                // Kiểm tra nút số lượng sản phẩm có tồn tại không
+                if (mutableData.getValue() == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                // Lấy giá trị hiện tại của số lượng sản phẩm
+                int currentQuantity = mutableData.getValue(Integer.class);
+
+                // Trừ đi số lượng sản phẩm cần trừ
+                int updatedQuantity = currentQuantity - quantityToSubtract;
+
+                // Cập nhật giá trị mới vào nút số lượng sản phẩm
+                mutableData.setValue(updatedQuantity);
+
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean committed, DataSnapshot dataSnapshot) {
+                if (committed) {
+                    // Cập nhật thành công
+                    Log.d("Firebase", "Số lượng sản phẩm đã được cập nhật trên Firebase.");
+                } else {
+                    // Cập nhật thất bại
+                    Log.e("Firebase", "Lỗi khi cập nhật số lượng sản phẩm trên Firebase: " + databaseError.getMessage());
+                }
+            }
+        });
+    }
+
+
 }
